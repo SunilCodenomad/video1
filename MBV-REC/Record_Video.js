@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Text, StyleSheet, View, Image, FlatList, TouchableOpacity } from "react-native";
 const data = [
-    { key: 'SEE' },
-    { key: 'VEE' },
-    { key: 'LEE' },
-    { key: 'FEE' },
+    { key: 'SEE' ,title:'wel 1videos'},
+    { key: 'VEE' ,title:'wel 2videos'},
+    { key: 'LEE' ,title:'wel 3videos'},
+    { key: 'FEE' ,title:'wel 4videos'},
     
   
   ]
@@ -28,11 +28,15 @@ const Record_Video =()=>{
           data={arraydata}
 
           renderItem={({ item }) => 
-          
+        <>  
           <View style={styles.GridedViewBlockStyle}>
             <Text style={styles.GridedViewInsideTextItemStyle}> {item.key}</Text>
           </View>
-          
+        <View>
+            <Text style={styles.GridedViewInsideTextItemStyle}> {item.title}</Text>
+
+        </View>
+</>
           }
 
           numColumns={1}
@@ -55,6 +59,8 @@ const styles = StyleSheet.create({
       backgroundColor: "#1c3567",
     },
     ListedView: {
+      display:"flex",
+      flexDirection:'row',
         width: "80%",
         alignSelf: 'center',
         marginTop:20},
