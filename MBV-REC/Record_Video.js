@@ -4,8 +4,7 @@ const data = [
     { key: 'SEE' ,title:'wel 1videos'},
     { key: 'VEE' ,title:'wel 2videos'},
     { key: 'LEE' ,title:'wel 3videos'},
-    { key: 'FEE' ,title:'wel 4videos'},
-    
+   
   
   ]
 const Record_Video =()=>{
@@ -22,21 +21,21 @@ const Record_Video =()=>{
           
         </View>
       </View>
-      <View style={styles.ListedView}>
+      <View>
         <FlatList
 
           data={arraydata}
 
           renderItem={({ item }) => 
-        <>  
+          <View  style={styles.ListedView}>
           <View style={styles.GridedViewBlockStyle}>
             <Text style={styles.GridedViewInsideTextItemStyle}> {item.key}</Text>
           </View>
-        <View>
+        <View style={styles.GridedViewBlockStyle10}>
             <Text style={styles.GridedViewInsideTextItemStyle}> {item.title}</Text>
 
         </View>
-</>
+        </View>
           }
 
           numColumns={1}
@@ -57,13 +56,16 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: "#1c3567",
+
     },
     ListedView: {
       display:"flex",
       flexDirection:'row',
-        width: "80%",
+        width: "95%",
         alignSelf: 'center',
-        marginTop:20},
+        marginTop:20
+      },
+
     RowView: {
         
         width: '60%',
@@ -75,30 +77,35 @@ const styles = StyleSheet.create({
         width: "90%",
         alignItems: 'center',
         marginTop: 50,},
-        Text: {
+      Text: {
             fontFamily: "Cochin",
             color: 'white',},
-            TableView: {
-                width: '100%',
+      TableView: {
+                width: '95%',
                 height: 50,
                 backgroundColor: '#fbc112',
                 marginTop: 20,
+                
+                marginLeft:10,
                 alignItems: 'center',
                 justifyContent: 'center'
               },
-              GridedViewBlockStyle: {
+        GridedViewBlockStyle: {
                
                     justifyContent: 'center',
-                    flex: 1,
                     alignItems: 'center',
                     height: 90,
-                    width:120,
+                    width:'30%',
                     margin: 5,
                     backgroundColor: '#999999'
                 
                   },
-                  
-                  GridedViewInsideTextItemStyle: {
+         GridedViewBlockStyle10: {
+                    
+                    width:'55%',
+                   
+                  },
+         GridedViewInsideTextItemStyle: {
                 
                     color: '#fff',
                     padding: 10,
@@ -108,4 +115,3 @@ const styles = StyleSheet.create({
                   },
 })
 export default Record_Video;
-
