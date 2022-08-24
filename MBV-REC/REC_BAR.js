@@ -41,13 +41,13 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         alignItems: 'center'},
 
-tabView: {
-    width: '100%',
-    height: 100,
-    backgroundColor: '#212e62',
-    marginTop: 120,
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
+    tabView: {
+         width: '100%',
+         height: 100,
+         backgroundColor: '#212e62',
+         marginTop: 120,
+         alignItems: 'center',
+         justifyContent: 'center'
+              }
 })
 export default REC_bar;

@@ -7,7 +7,7 @@ const data = [
    
   
   ]
-const Record_Video =()=>{
+const Record_Video =({navigation})=>{
   const [arraydata, setarraydata] = useState(data);
 
     return(
@@ -21,6 +21,15 @@ const Record_Video =()=>{
           
         </View>
       </View>
+      <View>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('REC_BAR')}
+      >
+        <Text>Go Next Page</Text>
+      </TouchableOpacity>
+      </View>
+
       <View>
         <FlatList
 
@@ -53,34 +62,32 @@ const Record_Video =()=>{
     )
 }
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "#1c3567",
+         container: {
+            flex: 1,
+           backgroundColor: "#1c3567",
+                },
+         ListedView: {
+           display:"flex",
+           flexDirection:'row',
+            width: "95%",
+            alignSelf: 'center',
+            marginTop:20
+                   },
 
-    },
-    ListedView: {
-      display:"flex",
-      flexDirection:'row',
-        width: "95%",
-        alignSelf: 'center',
-        marginTop:20
-      },
-
-    RowView: {
-        
-        width: '60%',
-        alignSelf: 'center',
-        alignItems: 'center'
-      },
-      TextsView: {
-        alignSelf: 'center',
-        width: "90%",
-        alignItems: 'center',
-        marginTop: 50,},
-      Text: {
+         RowView: {
+             width: '60%',
+             alignSelf: 'center',
+             alignItems: 'center'
+                   },
+         TextsView: {
+             alignSelf: 'center',
+             width: "90%",
+             alignItems: 'center',
+             marginTop: 50,},
+         Text: {
             fontFamily: "Cochin",
             color: 'white',},
-      TableView: {
+         TableView: {
                 width: '95%',
                 height: 50,
                 backgroundColor: '#fbc112',
@@ -90,7 +97,7 @@ const styles = StyleSheet.create({
                 alignItems: 'center',
                 justifyContent: 'center'
               },
-        GridedViewBlockStyle: {
+         GridedViewBlockStyle: {
                
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -113,5 +120,9 @@ const styles = StyleSheet.create({
                     justifyContent: 'center',
                 
                   },
+          button: {
+                    alignItems: "center",
+                    backgroundColor: "#DDDDDD",
+                    padding: 10}
 })
 export default Record_Video;

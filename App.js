@@ -1,159 +1,25 @@
-import React, { useState } from "react";
-import { Text, StyleSheet, View, Image, FlatList, TouchableOpacity } from "react-native";
-const data = [
-  { key: 'o' },
-  { key: '0' },
-  { key: '*' },
-  { key: '@' },
-  
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+const Stack = createNativeStackNavigator();
 
-]
 const App = () => {
-  // const [titleText, setTitleText] = useState("Bird's Nest");
-  // const bodyText = "This is not really a bird nest.";
-
-  
-  const [arraydata, setarraydata] = useState(data);
   return (
-    <View style={styles.container}>
-      <View style={styles.TextView}>
-        <Text style={styles.text}>Mybest.video</Text>
-      </View>
-      <View style={styles.tabView}>
-        <View style={styles.buttonView}>
-          <Text style={{color:'black',fontWeight: "bold"}}>REC MBV</Text>
-          <Text style={{color:'black',fontWeight: "bold"}}>PLAY MBV</Text>
-        </View>
-      </View>
-      <View style={styles.IconView}>
-        <Image
-          style={styles.tinyLogo1}
-          source={require('./Assets/Layer1.png')}
-        />
-        <Image
-          style={styles.tinyLogo}
-          source={require('./Assets/Layer.png')}
-        />
-      </View>
-      
-      <View style={styles.horizontalRow} />
-      {/* <View style={styles.TextView}>
-        <Text style={styles.text}>THE BEST VIDEO</Text>
-      </View> */}
-      <View style={styles.ListView}>
-        <FlatList
+    <NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        
+      />
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="video" component={Record_Video} />
+      <Stack.Screen name="BAR" component={REC_BAR} />
+      <Stack.Screen name="COL" component={REC_BAR_col} />
 
-          data={arraydata}
-
-          renderItem={({ item }) => 
-          <View style={styles.GridViewBlockStyle1}>
-          <View style={styles.GridViewBlockStyle}>
-
-            <Text style={styles.GridViewInsideTextItemStyle}> {item.key} </Text>
-
-          </View>
-          <Text style={{color:'white'}}>DEFENCE 10 TIMES IN A SINGLE RELLAY</Text>
-          <Text style={{color:'white',fontSize: 10}}>BEACH VOLLEY</Text>
-          
-          </View>
-          
-          }
-
-          numColumns={2}
-
-        />
-      </View>
-    </View>
+    </Stack.Navigator>
+  </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#1c3567"
-  },
-  tinyLogo1: {
-    width: 60,
-    height: 60,
-  },
-  tinyLogo: {
-    width: 60,
-    height: 72,
-  },
-  buttonView: {
-    flexDirection: 'row',
-    width: '60%',
-    justifyContent: 'space-between',
-    alignSelf: 'center',
-    alignItems: 'center'
-  },
-  TextView: {
-    alignSelf: 'center',
-    width: "90%",
-    alignItems: 'center',
-    marginTop: 50
-  },
-  text: {
-    fontFamily: "Cochin",
-    color: 'white'
-  },
-  titleText: {
-    fontSize: 20,
-    fontWeight: "bold"
-  },
-  tabView: {
-    width: '100%',
-    height: 50,
-    backgroundColor: '#fbc112',
-    marginTop: 20,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  IconView: {
-    height: 150,
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '60%',
-    alignSelf: 'center',
-    justifyContent: 'space-between'
-  },
-  horizontalRow: {
-    width: '100%',
-    height: 3,
-    backgroundColor: '#fbc112'
-  },
-  ListView: {
-    width: "80%",
-    alignSelf: 'center',
-    marginTop:20
-  },
-  GridViewBlockStyle: {
-borderRadius:10,
-    justifyContent: 'center',
-    flex: 1,
-    alignItems: 'center',
-    height: 90,
-    width:120,
-    margin: 5,
-    backgroundColor: '#999999'
-
-  },
-  GridViewBlockStyle1:{
-    flex: 1,
-    justifyContent: 'center',
-    alignItems:'center',
-    height: 130,
-    margin: 5,
-    // backgroundColor: 'red'
-  },
-  GridViewInsideTextItemStyle: {
-
-    color: '#fff',
-    padding: 10,
-    fontSize: 18,
-    justifyContent: 'center',
-
-  },
-});
 
 export default App;
