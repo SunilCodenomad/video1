@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from "react";
 import { Text, StyleSheet, View,Image} from "react-native";
 const REC_bar = ()=>{

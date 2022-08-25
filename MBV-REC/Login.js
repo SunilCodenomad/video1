@@ -1,27 +1,30 @@
-
-
+/* eslint-disable */
 import React from 'react';
+import { SafeAreaView, StyleSheet, View, TouchableOpacity, TextInput, Image, Text,ImageBackground } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-import { SafeAreaView, StyleSheet, View, TouchableOpacity, TextInput, Image, Text } from 'react-native';
-
-const Login = ({navigation}) => {
+const Login = () => {
+  const navigation = useNavigation();
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#1f3264' }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
+      
+      <ImageBackground  source={require('../Assets/Background.png')} resizeMode="cover" style={styles.image1}>
+      <View style={styles.container1}>
         <View style={{ alignSelf: 'center', marginTop: 50, marginBottom: 40 }}>
           <Image
             source={require('../Assets/Layer.png')}
             style={{ width: 65, height: 80 }}
           /> 
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('Home')} style={[styles.buttonGPlusStyle, { backgroundColor: '#1d4475', position: 'relative' }]} activeOpacity={0.5} >
+        <TouchableOpacity  onPress={() => navigation.navigate('LoginShow')} style={[styles.buttonGPlusStyle, { backgroundColor: '#1d4475', position: 'relative' }]} activeOpacity={0.5} >
           <Image
             source={require('../Assets/login.png')}
             style={{ width: 20, height: 20, position: "absolute", left: 20 }}
           />
           <Text style={[styles.buttonTextStyle, { display: 'flex', marginLeft: 'auto', marginRight: 'auto' }]}>LOGIN</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.buttonGPlusStyle, { backgroundColor: '#fbc112' }]}>
+        <TouchableOpacity  onPress={() => navigation.navigate('Register')} style={[styles.buttonGPlusStyle, { backgroundColor: '#fbc112' }]}>
           <Image
             source={require('../Assets/entrance.png')}
             style={{ width: 20, height: 20, position: "absolute", left: 20 }}
@@ -49,6 +52,9 @@ const Login = ({navigation}) => {
             color: "#fbc112"
           }}>MY<Text style={{ color: "white", }}>BEST</Text>VIDEO</Text>
         </View>
+        </View>
+        </ImageBackground>
+    
       </View>
     </SafeAreaView>
   );
@@ -68,6 +74,14 @@ const styles = StyleSheet.create({
     margin: 10,
     paddingLeft: 15
   },
+  image1:{
+    flex: 1,width:"100%",
+    justifyContent: "center",alignItems:"center"
+  },
+  container1:{
+    width:"100%", flex: 1,
+  },
+  
   buttonImageIconStyle: {
     padding: 10,
     margin: 1,
@@ -88,7 +102,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   container: {
-    justifyContent: 'center',
-    margin: 10,
+    flex:1,width:"100%",
   },
-});export default Login;
+});
+export default Login;

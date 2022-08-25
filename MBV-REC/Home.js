@@ -1,5 +1,9 @@
+/* eslint-disable */
+
 import React, { useState } from "react";
-import { Text, StyleSheet, View, Image, FlatList, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, View, Image, FlatList, TouchableOpacity,ScrollView} from "react-native";
+import { useNavigation } from '@react-navigation/native';
+
 const data = [
   { key: 'o' },
   { key: '0' },
@@ -8,41 +12,38 @@ const data = [
   
 
 ]
-const Home = ({navigation}) => {
-  // const [titleText, setTitleText] = useState("Bird's Nest");
-  // const bodyText = "This is not really a bird nest.";
-
-  
-  const [arraydata, setarraydata] = useState(data);
+const Home = () => {
+const navigation = useNavigation();
+const [arraydata, setarraydata] = useState(data);
   return (
+    <ScrollView style={styles.container1}>
     <View style={styles.container}>
       <View style={styles.TextView}>
         <Text style={styles.text}>Mybest.video</Text>
       </View>
       <View style={styles.tabView}>
         <View style={styles.buttonView}>
+        <TouchableOpacity
+        onPress={() => navigation.navigate('BAR')}>
           <Text style={{color:'black',fontWeight: "bold"}}>REC MBV</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+        onPress={() => navigation.navigate('video')}>
           <Text style={{color:'black',fontWeight: "bold"}}>PLAY MBV</Text>
+        </TouchableOpacity>
         </View>
       </View>
       <View style={styles.IconView}>
         <Image
           style={styles.tinyLogo1}
-          source={require('./Assets/Layer1.png')}
+          source={require('../Assets/Layer1.png')}
         />
         <Image
           style={styles.tinyLogo}
-          source={require('./Assets/Layer.png')}
+          source={require('../Assets/Layer.png')}
         />
       </View>
-      <View>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('Record_Video')}
-      >
-        <Text>Go Next Page</Text>
-      </TouchableOpacity>
-      </View>
+      
       <View style={styles.horizontalRow} />
       {/* <View style={styles.TextView}>
         <Text style={styles.text}>THE BEST VIDEO</Text>
@@ -71,11 +72,16 @@ const Home = ({navigation}) => {
         />
       </View>
     </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: "#1c3567"
+  },
+  container1: {
     flex: 1,
     backgroundColor: "#1c3567"
   },

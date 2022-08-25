@@ -1,5 +1,8 @@
+/* eslint-disable */
 import React, { useState } from "react";
-import { Text, StyleSheet, View, Image, FlatList, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, View, Image, FlatList, TouchableOpacity,ScrollView } from "react-native";
+import { useNavigation } from '@react-navigation/native';
+
 const data = [
     { key: 'SEE' ,title:'wel 1videos'},
     { key: 'VEE' ,title:'wel 2videos'},
@@ -7,10 +10,13 @@ const data = [
    
   
   ]
-const Record_Video =({navigation})=>{
+const Record_Video =()=>{
+  const navigation = useNavigation();
+
   const [arraydata, setarraydata] = useState(data);
 
     return(
+      <ScrollView style={styles.container1}>
 <View style={styles.container}>
       <View style={styles.TextsView}>
         <Text style={styles.Text}>Mybest.video</Text>
@@ -21,14 +27,7 @@ const Record_Video =({navigation})=>{
           
         </View>
       </View>
-      <View>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('REC_BAR')}
-      >
-        <Text>Go Next Page</Text>
-      </TouchableOpacity>
-      </View>
+     
 
       <View>
         <FlatList
@@ -53,7 +52,7 @@ const Record_Video =({navigation})=>{
       </View>
     </View>
 
-  
+    </ScrollView>
 
 
 
@@ -65,6 +64,10 @@ const styles = StyleSheet.create({
          container: {
             flex: 1,
            backgroundColor: "#1c3567",
+                },
+                container1: {
+                  flex: 1,
+                  backgroundColor: "#1c3567"
                 },
          ListedView: {
            display:"flex",

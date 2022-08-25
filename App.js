@@ -1,25 +1,30 @@
-import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+/* eslint-disable */
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-const Stack = createNativeStackNavigator();
+import {Provider as PaperProvider} from 'react-native-paper';
+import Login from './MBV-REC/Login';
+import LoginShow from './MBV-REC/LoginShow';
+import Register from './MBV-REC/Register';
 
-const App = () => {
+import Home from './MBV-REC/Home';
+import Record_Video from './MBV-REC/Record_Video';
+import REC_BAR from './MBV-REC/REC_BAR';
+const Stack = createNativeStackNavigator()
+export default function App() {
   return (
-    <NavigationContainer>
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Login"
-        component={Login}
-        
-      />
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="video" component={Record_Video} />
-      <Stack.Screen name="BAR" component={REC_BAR} />
-      <Stack.Screen name="COL" component={REC_BAR_col} />
+    <PaperProvider>
+      <NavigationContainer>
+      <Stack.Navigator >
+      <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+          <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+          <Stack.Screen name="LoginShow" component={LoginShow} options={{ headerShown: false }} />
+          <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
+          <Stack.Screen name="video" component={Record_Video} />
+          <Stack.Screen name="BAR" component={REC_BAR} />
 
-    </Stack.Navigator>
-  </NavigationContainer>
+        </Stack.Navigator>
+    </NavigationContainer>
+    </PaperProvider>
   );
-};
-
-export default App;
+}
