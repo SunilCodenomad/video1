@@ -1,7 +1,11 @@
 /* eslint-disable */
 import React, { useState } from "react";
-import { Text, StyleSheet, View,Image} from "react-native";
+import { Text, StyleSheet, View,Image,TouchableOpacity} from "react-native";
+import { useNavigation } from '@react-navigation/native';
+
 const REC_bar = ()=>{
+const navigation = useNavigation();
+
 return(
 
 <View style={styles.tabView}>
@@ -11,10 +15,13 @@ return(
 
           source={require('../Assets/Layer.png')}
         />
+      <TouchableOpacity onPress={() => navigation.navigate('Camera')}>
+        
            <Image
           style={styles.Logo2}
           source={require('../Assets/Layer1.png')}
         />
+        </TouchableOpacity>
         <Image
           style={styles.Logo1}
 

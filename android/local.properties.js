@@ -1,1 +1,0 @@
-sdk.dir = /Users/Sunil/Library/Android/sdk
