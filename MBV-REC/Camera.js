@@ -1,16 +1,19 @@
 import React from 'react';
-import {StyleSheet, View,Button } from 'react-native';
+import {StyleSheet,View,} from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import { useCamera } from 'react-native-camera-hooks';
 import { RNFS } from 'react-native-fs';
+import REC_BAR from '../MBV-REC/REC_BAR';
 
 export default function Camera(){
 const[{cameraRef},{takePicture}] =useCamera(null);
 
-const captureHandle = async()=>{
+
+
+const captureHandle = ()=>{
 
   try{
-const data = await takePicture()
+const data = takePicture()
   console.log(data.uri)
   const filePath = data.uri;
   const newFilePath = RNFS.ExternalDirectoryPath;
@@ -22,21 +25,23 @@ const data = await takePicture()
   
 }
 return( 
+
   <View style={styles.body}>
-    <RNCamera
+    <RNCamera style = {{flex:1, width: '100%',justifyContent: 'flex-end'
+      
+}}
       ref = {cameraRef} 
       type = {RNCamera.Constants.Type.back}
-      style = {StyleSheet.preview}
+      
       >
-        <Button
-        title='capture'
-        color='#1eb900'
-        onPressFunction={()=>captureHandle()}
-        />
- 
+        
+<REC_BAR data = {captureHandle}/>
  
  </RNCamera>
+ 
+
   </View>
+
 )
 
 
@@ -45,14 +50,8 @@ return(
 }
 const styles = StyleSheet.create({
   body : {
-    flex :1
-  },
-  preview : {
-flex:1,
-alignItems:"center",
-justifyContent:"flex-end "
-
-  }
+    flex: 1,}
+ 
 
 
 

@@ -1,10 +1,10 @@
 /* eslint-disable */
 import React, { useState } from "react";
 import { Text, StyleSheet, View,Image,TouchableOpacity} from "react-native";
-import { useNavigation } from '@react-navigation/native';
+// import { useNavigation } from '@react-navigation/native';
 
-const REC_bar = ()=>{
-const navigation = useNavigation();
+const REC_BAR = (props)=>{
+// const navigation = useNavigation();
 
 return(
 
@@ -15,7 +15,7 @@ return(
 
           source={require('../Assets/Layer.png')}
         />
-      <TouchableOpacity onPress={() => navigation.navigate('Camera')}>
+      <TouchableOpacity onPress={() => {props.captureHandle()}}>
         
            <Image
           style={styles.Logo2}
@@ -23,24 +23,29 @@ return(
         />
         </TouchableOpacity>
         <Image
-          style={styles.Logo1}
+          style={styles.Logo3}
 
           source={require('../Assets/Layer2.png')}
         />
         </View>
+        
       </View>
+
 )
 
 
 };
 const styles = StyleSheet.create({
     Logo1: {
-        width: 22,
-        height: 22},
+        width: 25,
+        height: 30},
 
-        Logo2: {
+    Logo2: {
             width: 70,
             height: 70},
+    Logo3: {
+              width: 25,
+              height: 26},  
             
     ImageView: {
         flexDirection: 'row',
@@ -53,9 +58,9 @@ const styles = StyleSheet.create({
          width: '100%',
          height: 100,
          backgroundColor: '#212e62',
-         marginTop: 120,
          alignItems: 'center',
-         justifyContent: 'center'
+         justifyContent: 'center',
+         alignSelf:"baseline"
               }
 })
-export default REC_bar;
+export default REC_BAR;

@@ -34,10 +34,13 @@ const [arraydata, setarraydata] = useState(data);
         </View>
       </View>
       <View style={styles.IconView}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Camera')}>
         <Image
           style={styles.tinyLogo1}
           source={require('../Assets/Layer1.png')}
         />
+         </TouchableOpacity>
         <Image
           style={styles.tinyLogo}
           source={require('../Assets/Layer.png')}
