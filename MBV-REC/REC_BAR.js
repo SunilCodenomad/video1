@@ -5,6 +5,7 @@ import { Text, StyleSheet, View,Image,TouchableOpacity} from "react-native";
 
 const REC_BAR = (props)=>{
 // const navigation = useNavigation();
+console.log(props)
 
 return(
 
@@ -15,7 +16,7 @@ return(
 
           source={require('../Assets/Layer.png')}
         />
-      <TouchableOpacity onPress={() => {props.captureHandle()}}>
+      <TouchableOpacity onPress={() => props.data}>
         
            <Image
           style={styles.Logo2}
