@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import React, { useState } from "react";
-import { Text, StyleSheet, View, Image, FlatList, TouchableOpacity,ScrollView} from "react-native";
+import { Text, StyleSheet, View, Image, FlatList, TouchableOpacity, ScrollView } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
 const data = [
@@ -9,72 +9,72 @@ const data = [
   { key: '0' },
   { key: '*' },
   { key: '@' },
-  
+
 
 ]
 const Home = () => {
-const navigation = useNavigation();
-const [arraydata, setarraydata] = useState(data);
+  const navigation = useNavigation();
+  const [arraydata, setarraydata] = useState(data);
   return (
     <ScrollView style={styles.container1}>
-    <View style={styles.container}>
-      <View style={styles.TextView}>
-        <Text style={styles.text}>Mybest.video</Text>
-      </View>
-      <View style={styles.tabView}>
-        <View style={styles.buttonView}>
-        <TouchableOpacity
-        onPress={() => navigation.navigate('BAR')}>
-          <Text style={{color:'black',fontWeight: "bold"}}>REC MBV</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-        onPress={() => navigation.navigate('video')}>
-          <Text style={{color:'black',fontWeight: "bold"}}>PLAY MBV</Text>
-        </TouchableOpacity>
+      <View style={styles.container}>
+        <View style={styles.TextView}>
+          <Text style={styles.text}>Mybest.video</Text>
         </View>
-      </View>
-      <View style={styles.IconView}>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Camera')}>
-        <Image
-          style={styles.tinyLogo1}
-          source={require('../Assets/Layer1.png')}
-        />
-         </TouchableOpacity>
-        <Image
-          style={styles.tinyLogo}
-          source={require('../Assets/Layer.png')}
-        />
-      </View>
-      
-      <View style={styles.horizontalRow} />
-      {/* <View style={styles.TextView}>
+        <View style={styles.tabView}>
+          <View style={styles.buttonView}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('BAR')}>
+              <Text style={{ color: 'black', fontWeight: "bold" }}>REC MBV</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('video')}>
+              <Text style={{ color: 'black', fontWeight: "bold" }}>PLAY MBV</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.IconView}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Camera')}>
+            <Image
+              style={styles.tinyLogo1}
+              source={require('../Assets/Layer1.png')}
+            />
+          </TouchableOpacity>
+          <Image
+            style={styles.tinyLogo}
+            source={require('../Assets/Layer.png')}
+          />
+        </View>
+
+        <View style={styles.horizontalRow} />
+        {/* <View style={styles.TextView}>
         <Text style={styles.text}>THE BEST VIDEO</Text>
       </View> */}
-      <View style={styles.ListView}>
-        <FlatList
+        <View style={styles.ListView}>
+          <FlatList
 
-          data={arraydata}
+            data={arraydata}
 
-          renderItem={({ item }) => 
-          <View style={styles.GridViewBlockStyle1}>
-          <View style={styles.GridViewBlockStyle}>
+            renderItem={({ item }) =>
+              <View style={styles.GridViewBlockStyle1}>
+                <View style={styles.GridViewBlockStyle}>
 
-            <Text style={styles.GridViewInsideTextItemStyle}> {item.key} </Text>
+                  <Text style={styles.GridViewInsideTextItemStyle}> {item.key} </Text>
 
-          </View>
-          <Text style={{color:'white'}}>DEFENCE 10 TIMES IN A SINGLE RELLAY</Text>
-          <Text style={{color:'white',fontSize: 10}}>BEACH VOLLEY</Text>
-          
-          </View>
-          
-          }
+                </View>
+                <Text style={{ color: 'white' }}>DEFENCE 10 TIMES IN A SINGLE RELLAY</Text>
+                <Text style={{ color: 'white', fontSize: 10 }}>BEACH VOLLEY</Text>
 
-          numColumns={2}
+              </View>
 
-        />
+            }
+
+            numColumns={2}
+
+          />
+        </View>
       </View>
-    </View>
     </ScrollView>
   );
 };
@@ -141,23 +141,23 @@ const styles = StyleSheet.create({
   ListView: {
     width: "80%",
     alignSelf: 'center',
-    marginTop:20
+    marginTop: 20
   },
   GridViewBlockStyle: {
-borderRadius:10,
+    borderRadius: 10,
     justifyContent: 'center',
     flex: 1,
     alignItems: 'center',
     height: 90,
-    width:120,
+    width: 120,
     margin: 5,
     backgroundColor: '#999999'
 
   },
-  GridViewBlockStyle1:{
+  GridViewBlockStyle1: {
     flex: 1,
     justifyContent: 'center',
-    alignItems:'center',
+    alignItems: 'center',
     height: 130,
     margin: 5,
     // backgroundColor: 'red'
@@ -173,7 +173,8 @@ borderRadius:10,
   button: {
     alignItems: "center",
     backgroundColor: "#DDDDDD",
-    padding: 10}
+    padding: 10
+  }
 });
 
 export default Home;
