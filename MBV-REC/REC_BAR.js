@@ -20,7 +20,7 @@ return(
         
            <Image
           style={styles.Logo2}
-          source={require('../Assets/Layer1.png')}
+          source={require('../Assets/play.png')}
         />
         </TouchableOpacity>
         <Image

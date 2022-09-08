@@ -38,7 +38,7 @@ const Home = () => {
             onPress={() => navigation.navigate('Camera')}>
             <Image
               style={styles.tinyLogo1}
-              source={require('../Assets/Layer1.png')}
+              source={require('../Assets/play.png')}
             />
           </TouchableOpacity>
           <Image

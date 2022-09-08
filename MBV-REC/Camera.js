@@ -13,23 +13,25 @@ class Camera extends React.Component {
     recording: false,
     video_path: null,
     processing: false,
+    Data:null
   }
 
   render() {
     const { recording, video_path, processing } = this.state;
-    console.log("....................", video_path)
+    
     let button = (
       <View style={styles.tabView}>
         <View style={styles.ImageView}>
-          <Image
-            style={styles.Logo2}
-            source={require('../Assets/Layer1.png')} />
+        <Image
+              style={styles.Logo1}
+              source={require('../Assets/Layer.png')} />
+          
           <TouchableOpacity
             onPress={this.startRecording.bind(this)}
             style={styles.button}>
             <Image
-              style={styles.Logo1}
-              source={require('../Assets/Layer.png')} />
+            style={styles.Logo2}
+            source={require('../Assets/play.png')} />
           </TouchableOpacity>
           <Image
             style={styles.Logo3}
@@ -53,7 +55,7 @@ class Camera extends React.Component {
             >
               <Image
                 style={styles.Logo2}
-                source={require('../Assets/Layer1.png')}
+                source={require('../Assets/stop.png')}
 
               />
             </TouchableOpacity>
@@ -106,7 +108,7 @@ class Camera extends React.Component {
 
           <View
             style={{ flex: 1, flexDirection: "column", justifyContent: "flex-end" }}>
-            <Video source={{ uri: video_path }}   // Can be a URL or a local file.
+            <Video source={{ uri:video_path }}   // Can be a URL or a local file.
               ref={(ref) => {
                 this.player = ref
               }}                                      // Store reference
@@ -126,13 +128,13 @@ class Camera extends React.Component {
                   <Image
                   style={styles.Logo3}
 
-                  source={require('../Assets/Layer2.png')}
+                  source={require('../Assets/save.png')}
                 />
                 </TouchableOpacity>
                 
                 <Image
                     style={styles.Logo2}
-                    source={require('../Assets/Layer1.png')}
+                    source={require('../Assets/play.png')}
 
                   />
               </View>
@@ -144,13 +146,13 @@ class Camera extends React.Component {
       </View>
     );
   }
-  async saveVideo(){
-    console.log('111111111111111111111',data.uri)
+  async saveVideo(){  
     try{
-  const data = await resumeVideo() 
-    console.log('111111111111111111111',data.uri)
-    const filePath = data.uri;
-    const newFilePath = RNFS.ExternalDirectoryPath;
+      
+    const filePath = this.state.Data
+    console.log(filePath)
+    const newFilePath = RNFS.ExternalDirectoryPath+"/file.mp4";
+   
     RNFS.moveFile(filePath,newFilePath)
   .then(()=>{console.log('image moved',filePath,'---to---',newFilePath)})
     .catch(error=>{console.log(error);})
@@ -160,40 +162,28 @@ class Camera extends React.Component {
   }
 
   async startRecording() {
-    console.log("444444444444444444444444444")
     this.setState({ recording: true });
-    const options = { quality: RNCamera.Constants.VideoQuality["480p"] };
-    // default to mp4 for android as codec is not set
+    const options = { quality: RNCamera.Constants.VideoQuality["480p"]};
+    console.log(options,'>>>>>>>>>>>>>>>>>>>>>>>>optionnnnnnnnn')
+    console.log(this.camera,'**************>>>>>>>>>camera')
 
-    console.log(this.camera,"fgfgfgf")
     const { uri, codec = 'mp4' } = await this.camera.recordAsync(options);
-    console.log(uri)
-    console.log(codec)
-    if (uri)
-      console.log(uri)
-      const filePath = uri;
-    const newFilePath = RNFS.ExternalDirectoryPath;
-    console.log(newFilePath,'>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-    RNFS.moveFile(filePath,newFilePath)
-    console.log(RNFS.moveFile(filePath,newFilePath),"hellooooo")
-    this.setState({ video_path: RNFS.moveFile(filePath,newFilePath), processing: false, })
-    this.setState({ recording: false, video_path: uri, processing: true });
-  }
+    console.log(uri,'>>>>>>>>>>>>>>>>>>>>>>>>uri')
+    console.log(codec,'>>>>>>>>>>>>>>>>>>>>>>>>codec')
+    
+    if(uri)
+      console.log(uri,'>>>>>>>>>>>>>>>>>>>>>>>>uriiiiiiiiiiii')
+      
+      this.setState({ recording: false, video_path:uri, processing:true ,Data:uri});
+}
 
-  stopRecording() {
-    console.log('5555555555555555555555555555')
-    this.camera.stopRecording();
+stopRecording() {
+  
+  this.camera.stopRecording();
+  
+}
 
-  }
 
-  resumeVideo() {
-    console.log('6666666666666666666666666666666')
-    const filePath = data.uri;
-    const newFilePath = RNFS.ExternalDirectoryPath;
-    RNFS.moveFile(filePath,newFilePath)
-    this.setState({ video_path: RNFS.moveFile(filePath,newFilePath), processing: false, })
-
-  }
 }
 
 const styles = StyleSheet.create({
@@ -209,7 +199,6 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 0,
-    // backgroundColor: '#fff',
     borderRadius: 5,
     padding: 15,
     paddingHorizontal: 20,
@@ -233,8 +222,8 @@ const styles = StyleSheet.create({
     height: 30
   },
   Logo3: {
-    width: 25,
-    height: 26
+    width: 30,
+    height: 30
   },
   ImageView: {
     flexDirection: 'row',
