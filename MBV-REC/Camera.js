@@ -4,7 +4,7 @@ import { RNCamera } from 'react-native-camera';
 import Video from 'react-native-video';
 import RNFS from 'react-native-fs';
 
-// const dirPicutures = `${dirHome}/Pictures`;
+
 
 class Camera extends React.Component {
 
@@ -13,32 +13,36 @@ class Camera extends React.Component {
     recording: false,
     video_path: null,
     processing: false,
-    Data:null
+    Data:null,
+    isTrue: true,
+   
   }
-
+ 
   render() {
-    const { recording, video_path, processing } = this.state;
+    const { recording, video_path, processing, isTrue} = this.state;
     
-    let button = (
-      <View style={styles.tabView}>
-        <View style={styles.ImageView}>
-        <Image
-              style={styles.Logo1}
-              source={require('../Assets/Layer.png')} />
-          
-          <TouchableOpacity
-            onPress={this.startRecording.bind(this)}
-            style={styles.button}>
-            <Image
-            style={styles.Logo2}
-            source={require('../Assets/play.png')} />
-          </TouchableOpacity>
+    if(isTrue) {
+      var button = (
+        <View style={styles.tabView}>
+          <View style={styles.ImageView}>
           <Image
-            style={styles.Logo3}
-            source={require('../Assets/Layer2.png')} />
+                style={styles.Logo1}
+                source={require('../Assets/Layer.png')} />
+            
+            <TouchableOpacity
+              onPress={this.startRecording.bind(this)}
+              style={styles.button}>
+              <Image
+              style={styles.Logo2}
+              source={require('../Assets/play.png')} />
+            </TouchableOpacity>
+            <Image
+              style={styles.Logo3}
+              source={require('../Assets/Layer2.png')} />
+          </View>
         </View>
-      </View>
-    );
+      );
+    }
 
     if (recording) {
       button = (
@@ -147,11 +151,12 @@ class Camera extends React.Component {
     );
   }
   async saveVideo(){  
+    this.setState({processing:false,recording:true});
     try{
       
     const filePath = this.state.Data
     console.log(filePath)
-    const newFilePath = RNFS.ExternalDirectoryPath+"/file.mp4";
+    const newFilePath = RNFS.ExternalDirectoryPath +"/file.mp4";
    
     RNFS.moveFile(filePath,newFilePath)
   .then(()=>{console.log('image moved',filePath,'---to---',newFilePath)})
@@ -178,10 +183,9 @@ class Camera extends React.Component {
 }
 
 stopRecording() {
-  
   this.camera.stopRecording();
-  
-}
+  this.setState({ isTrue: false })
+  }
 
 
 }
