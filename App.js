@@ -6,7 +6,6 @@ import {Provider as PaperProvider} from 'react-native-paper';
 import Login from './MBV-REC/Login';
 import LoginShow from './MBV-REC/LoginShow';
 import Register from './MBV-REC/Register';
-
 import Home from './MBV-REC/Home';
 import Record_Video from './MBV-REC/Record_Video';
 import REC_BAR from './MBV-REC/REC_BAR';

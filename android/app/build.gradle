@@ -1,7 +1,14 @@
-apply plugin: "com.android.application"
+plugins {
+  id 'com.android.application'
 
+  // Add the Google services Gradle plugin
+  id 'com.google.gms.google-services'
+
+  
+}
 import com.android.build.OutputFile
 import org.apache.tools.ant.taskdefs.condition.Os
+
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -267,10 +274,11 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     //noinspection GradleDynamicVersion
+    implementation 'com.google.firebase:firebase-auth'
+
+    implementation platform('com.google.firebase:firebase-bom:30.2.0')
     implementation "com.facebook.react:react-native:+"  // From node_modules
-
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
-
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.fbjni'
     }

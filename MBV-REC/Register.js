@@ -3,7 +3,6 @@
 import { StatusBar } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from '@react-navigation/native';
-
 import {
   StyleSheet,
   Text,
@@ -13,13 +12,43 @@ import {
   Button,
   TouchableOpacity,ImageBackground
 } from "react-native";
- 
-export default function Register() {
+import auth from "@react-native-firebase/auth";
+import firestore from "@react-native-firebase/firestore";
+
+
+export default function Register() { 
 const navigation = useNavigation();
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
 const [confirmpassword, setconfirmPassword] = useState("");
+ 
+const userSignup = async ()=>{
+  console.log('hello>>>>>>>>>>>>>>>>>>>>')
+  if(!email || !password ){
+         alert("please add all the field")
+         return 
+  }
+  try{
+    const result =  await auth().createUserWithEmailAndPassword(email,password)
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>",result)
+    firestore().collection('users').doc(result.user.uid).set({
+      
+          email:email,
+          password:password,
+          confirmpassword:confirmpassword, }) 
+         if(email || password){
+          navigation.navigate('LoginShow')
+         }
+         
+          
+      
+    
+  }catch(error){
+      alert(error)
+  }
+ 
 
+}
  
   return (
     <View style={styles.container}>
@@ -49,7 +78,7 @@ const [confirmpassword, setconfirmPassword] = useState("");
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Password."
+          placeholder="confirmpassword."
           placeholderTextColor="#003f5c"
           secureTextEntry={true}
           onChangeText={(confirmpassword) => setconfirmPassword(confirmpassword)}
@@ -57,8 +86,8 @@ const [confirmpassword, setconfirmPassword] = useState("");
       </View>
  
       
-      <TouchableOpacity style={styles.loginBtn}>
-        <Text style={styles.loginText}>Register</Text>
+      <TouchableOpacity style={styles.loginBtn} onPress={()=>{userSignup()}}>
+        <Text style={styles.loginText} onPress={()=>{userSignup()}}>Register</Text>
       </TouchableOpacity>
       </View>
       </ImageBackground>

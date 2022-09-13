@@ -3,6 +3,7 @@
 import { StatusBar } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from '@react-navigation/native';
+import auth from "@react-native-firebase/auth";
 
 import {
   StyleSheet,
@@ -18,6 +19,26 @@ export default function LoginShow() {
 const navigation = useNavigation();
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
+
+const userlogin = async ()=>{
+  console.log('ffffffffffff>>>>>>>>>>>>>>>>>>>>')
+  if(!email || !password ){
+         alert("please add all the field")
+         return 
+  }
+  try{
+    const result =  await auth().signInWithEmailAndPassword(email,password)
+    console.log("login ok",result)
+    if(email || password){
+      navigation.navigate('Home')
+     }
+    
+  }catch(error){
+      alert(error)
+  }
+ 
+
+}
  
   return (
     <View style={styles.container}>
@@ -49,9 +70,9 @@ const [password, setPassword] = useState("");
         <Text style={styles.forgot_button}>Forgot Password?</Text>
       </TouchableOpacity>
  
-      <TouchableOpacity onPress={() => navigation.navigate('Home')}
+      <TouchableOpacity onPress={() => {userlogin()}}
       style={styles.loginBtn}>
-        <Text style={styles.loginText}>LOGIN</Text>
+        <Text onPress={() =>{userlogin()}}>LOGIN</Text>
       </TouchableOpacity>
       </View>
       </ImageBackground>
