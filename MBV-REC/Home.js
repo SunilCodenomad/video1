@@ -1,8 +1,9 @@
 /* eslint-disable */
 
 import React, { useState } from "react";
-import { Text, StyleSheet, View, Image, FlatList, TouchableOpacity, ScrollView } from "react-native";
+import { Text, StyleSheet, View, Image, FlatList, TouchableOpacity, ScrollView,SafeAreaView } from "react-native";
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const data = [
   { key: 'o' },
@@ -15,8 +16,20 @@ const data = [
 const Home = () => {
   const navigation = useNavigation();
   const [arraydata, setarraydata] = useState(data);
+
+  const clearStorage = async () => {
+    try {
+      await AsyncStorage.clear();
+     
+      navigation.navigate('Login')
+    } catch (e) {
+      alert('Failed to clear the async storage.');
+    }
+  };
+
   return (
-    <ScrollView style={styles.container1}>
+    <SafeAreaView style={styles.container1}>
+    {/* // <ScrollView nestedScrollEnabled={true}  style={styles.container1}> */}
       <View style={styles.container}>
         <View style={styles.TextView}>
           <Text style={styles.text}>Mybest.video</Text>
@@ -41,10 +54,13 @@ const Home = () => {
               source={require('../Assets/play.png')}
             />
           </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {clearStorage()}}>
           <Image
             style={styles.tinyLogo}
             source={require('../Assets/Layer.png')}
           />
+          </TouchableOpacity>
         </View>
 
         <View style={styles.horizontalRow} />
@@ -52,6 +68,7 @@ const Home = () => {
         <Text style={styles.text}>THE BEST VIDEO</Text>
       </View> */}
         <View style={styles.ListView}>
+        
           <FlatList
 
             data={arraydata}
@@ -63,8 +80,8 @@ const Home = () => {
                   <Text style={styles.GridViewInsideTextItemStyle}> {item.key} </Text>
 
                 </View>
-                <Text style={{ color: 'white' }}>DEFENCE 10 TIMES IN A SINGLE RELLAY</Text>
-                <Text style={{ color: 'white', fontSize: 10 }}>BEACH VOLLEY</Text>
+                <Text style={{ color: 'white', fontSize:12}}>DEFENCE 10 TIMES IN A SINGLE RELLAY</Text>
+                <Text style={{ color: 'white', fontSize: 12 }}>BEACH VOLLEY</Text>
 
               </View>
 
@@ -73,9 +90,13 @@ const Home = () => {
             numColumns={2}
 
           />
+    
         </View>
       </View>
-    </ScrollView>
+      
+     
+    {/* </ScrollView> */}
+     </SafeAreaView>
   );
 };
 

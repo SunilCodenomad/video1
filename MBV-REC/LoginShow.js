@@ -1,10 +1,10 @@
 /* eslint-disable */
 
 import { StatusBar } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from '@react-navigation/native';
 import auth from "@react-native-firebase/auth";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   StyleSheet,
   Text,
@@ -19,6 +19,27 @@ export default function LoginShow() {
 const navigation = useNavigation();
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
+ 
+// useEffect(()=>{
+//   try {
+//     const value1= AsyncStorage.getItem('result');
+// var newval1 = JSON.parse(JSON.stringify(value1))
+//     if (newval1 !=null) {
+//       navigation.navigate('Home')
+//       console.log(newval1,'>>>>>>>>>>>>>>>>>>>>>>>>>')
+//     }
+//   } catch (error) {
+//     alert('Failed to fetch the input from storage');
+//     console.log(error)
+//   }
+  // try {
+  //   AsyncStorage.clear();
+   
+  //   navigation.navigate('LoginShow')
+  // } catch (e) {
+  //   alert('Failed to clear the async storage.');
+  // }
+// },[])
 
 const userlogin = async ()=>{
   console.log('ffffffffffff>>>>>>>>>>>>>>>>>>>>')
@@ -27,17 +48,22 @@ const userlogin = async ()=>{
          return 
   }
   try{
-    const result =  await auth().signInWithEmailAndPassword(email,password)
+    var result =  await auth().signInWithEmailAndPassword(email,password)
     console.log("login ok",result)
     if(email || password){
       navigation.navigate('Home')
      }
     
   }catch(error){
-      alert(error)
+      alert('please enter valid email & password')
   }
- 
-
+  try {
+    await AsyncStorage.setItem("result", JSON.stringify(result.user.email));
+    console.log('Data successfully saved',result.user.email)
+  } catch (error) {
+    console.log("error while storing data", error);
+  }
+  
 }
  
   return (
