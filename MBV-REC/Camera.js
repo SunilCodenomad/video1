@@ -1,12 +1,17 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Text, Image, Dimensions } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import Video from 'react-native-video';
 import RNFS from 'react-native-fs';
+import { useNavigation } from '@react-navigation/native';
 
 
 
 class Camera extends React.Component {
+  constructor(props) {
+    super(props);
+  
+}
 
   state = {
 
@@ -15,7 +20,6 @@ class Camera extends React.Component {
     processing: false,
     Data:null,
     isTrue: true,
-   
   }
 //   ComponentDidUpdate() {
     
@@ -27,7 +31,7 @@ class Camera extends React.Component {
 // }
  
   render() {
-    const { recording, video_path, processing, isTrue} = this.state;
+    const { recording, video_path, processing, isTrue,} = this.state;
     
     if(isTrue) {
       var button = (
@@ -64,6 +68,7 @@ class Camera extends React.Component {
             <TouchableOpacity
               onPress={this.stopRecording.bind(this)}
               style={styles.button}
+              
             >
               <Image
                 style={styles.Logo2}
@@ -119,11 +124,13 @@ class Camera extends React.Component {
         {video_path ?
 
           <View
-            style={{ flex: 1, flexDirection: "column", justifyContent: "flex-end" }}>
+            style={{ flex: 1, flexDirection: "column", justifyContent: "flex-end",width:"100%",}}>
             <Video source={{ uri:video_path }}   // Can be a URL or a local file.
               ref={(ref) => {
                 this.player = ref
-              }}                                      // Store reference
+              }}  
+              fullscreen={true}
+              resizeMode="cover"                                    // Store reference
               onBuffer={this.onBuffer}                // Callback when remote video is buffering
               onError={this.videoError}               // Callback when video cannot be loaded
               style={styles.backgroundVideo} />
@@ -159,15 +166,20 @@ class Camera extends React.Component {
     );
   }
   async saveVideo(){  
-    this.setState({processing:false,recording:true});
+    //this.setState({processing:false,recording:true,});
+    
     try{
-      
+    const timestamp = Date.now();
+    
     const filePath = this.state.Data
     console.log(filePath)
-    const newFilePath = RNFS.ExternalDirectoryPath +"/file.mp4";
+    const newFilePath = RNFS.ExternalDirectoryPath + '/'+timestamp+'.mp4';
    
     RNFS.moveFile(filePath,newFilePath)
-  .then(()=>{console.log('image moved',filePath,'---to---',newFilePath)})
+  .then(()=>{
+    console.log('image moved',filePath,'---to---',newFilePath)
+    this.props.navigation.navigate('Home')
+  })
     .catch(error=>{console.log(error);})
     
     }catch(error){console.log(error)}
@@ -202,7 +214,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'black',
+    backgroundColor: 'black',width:"100%"
   },
   preview: {
     flex: 1,
@@ -218,7 +230,10 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   backgroundVideo: {
+    //flex:1,
     position: 'absolute',
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height*2,
     top: 0,
     left: 0,
     bottom: 0,

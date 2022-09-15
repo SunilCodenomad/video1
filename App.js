@@ -1,8 +1,8 @@
 /* eslint-disable */
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {Provider as PaperProvider} from 'react-native-paper';
+import { Provider as PaperProvider } from 'react-native-paper';
 import Login from './MBV-REC/Login';
 import LoginShow from './MBV-REC/LoginShow';
 import Register from './MBV-REC/Register';
@@ -17,17 +17,16 @@ export default function App() {
   return (
     <PaperProvider>
       <NavigationContainer>
-      <Stack.Navigator >
-      <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+        <Stack.Navigator >
+          <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
           <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
           <Stack.Screen name="LoginShow" component={LoginShow} options={{ headerShown: false }} />
-          <Stack.Screen name="Register" component={Register} options={{ headerShown: false}} />
+          <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
           <Stack.Screen name="video" component={Record_Video} />
           <Stack.Screen name="BAR" component={REC_BAR} />
           <Stack.Screen name="Camera" component={Camera} />
-
         </Stack.Navigator>
-    </NavigationContainer>
+      </NavigationContainer>
     </PaperProvider>
   );
 }

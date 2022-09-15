@@ -1,10 +1,11 @@
 /* eslint-disable */
 
-import React, { useState } from "react";
-import { Text, StyleSheet, View, Image, FlatList, TouchableOpacity, ScrollView,SafeAreaView } from "react-native";
+import React, { useState,useEffect } from "react";
+import { Text,Button, StyleSheet, View, Image, FlatList, TouchableOpacity, ScrollView,SafeAreaView,BackHandler } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import RNFS from 'react-native-fs';
+import Video from 'react-native-video';
 const data = [
   { key: 'o' },
   { key: '0' },
@@ -14,10 +15,79 @@ const data = [
 
 ]
 const Home = () => {
+  
   const navigation = useNavigation();
   const [arraydata, setarraydata] = useState(data);
+  const [externalDirectory, setExternalDirectory] = useState('');
+  const [files, setFiles] = useState([]);
+
+
+  useEffect(()=>{ 
+    
+    BackHandler.addEventListener("hardwareBackPress",HandleBackPress)
+    setExternalDirectory(RNFS.ExternalDirectoryPath);
+    console.log(RNFS.ExternalDirectoryPath,"=-=-=-=-=-=-=")
+    getFileContent(RNFS.ExternalDirectoryPath); 
+  },[])
+
+  function HandleBackPress(){
+//    alert('Exit sir','Exiting the application?',[{
+//      text:'Cancel',
+//      onPress:()=>{console.log('Cancel Pressed');},
+//      style:'Cancel'},
+// { text:'Ok',
+// onPress:()=>BackHandler.exitApp(),}
+//    ],{
+//     cancelable:false,
+//    });
+   return true;
+  }
+  const onBuffer=async (isBuffering)=>{
+   
+    this.setState({ isBuffering });
+  }
+  const getFileContent = async (path) => {
+    const reader = await RNFS.readDir(path);
+    console.log(reader)
+    setFiles(reader);
+  };
+
+  const Item = ({ name, isFile }) => {
+    return (
+      <View style={styles.GridViewBlockStyle1}>
+      {/* <View style={styles.GridViewBlockStyle}>
+
+        <Text style={styles.GridViewInsideTextItemStyle}> {item.key} </Text>
+
+      </View> */}
+      <Video
+      style={styles.GridViewBlockStyle}
+      muted={true}
+      source={{ uri:RNFS.ExternalDirectoryPath+'/'+name }}           
+      repeat={true}
+           
+          />
+      <Text style={{ color: 'white', fontSize:12, padding:7,margin:5}}>DEFENCE 10 TIMES IN A SINGLE</Text>
+      <Text style={{ color: 'white', fontSize:8,}}>BEACH VOLLEY</Text>
+
+    </View>
+
+      
+    );
+  };
+
+  const renderItem = ({ item, index }) => {
+    return (
+      <View>
+        {/* <Text style={styles.title}>{index}</Text> */}
+        {/* The isFile method indicates whether the scanned content is a file or a folder*/}
+        <Item name={item.name} isFile={item.isFile()} />
+      </View>
+    );
+  };
 
   const clearStorage = async () => {
+
     try {
       await AsyncStorage.clear();
      
@@ -26,11 +96,20 @@ const Home = () => {
       alert('Failed to clear the async storage.');
     }
   };
-
+  
+ 
   return (
-    <SafeAreaView style={styles.container1}>
-    {/* // <ScrollView nestedScrollEnabled={true}  style={styles.container1}> */}
+    // <SafeAreaView style={styles.container1}>
+    <ScrollView nestedScrollEnabled={true}  style={styles.container1}> 
       <View style={styles.container}>
+      <View style={styles.screenContainer}>    
+      <Button
+ onPress={() => {clearStorage()}}
+  title="Logout"
+  color="#841584"
+
+/>
+</View>
         <View style={styles.TextView}>
           <Text style={styles.text}>Mybest.video</Text>
         </View>
@@ -54,13 +133,13 @@ const Home = () => {
               source={require('../Assets/play.png')}
             />
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {clearStorage()}}>
+          {/* <TouchableOpacity
+            onPress={() => {clearStorage()}}> */}
           <Image
             style={styles.tinyLogo}
             source={require('../Assets/Layer.png')}
           />
-          </TouchableOpacity>
+          {/* </TouchableOpacity> */}
         </View>
 
         <View style={styles.horizontalRow} />
@@ -69,7 +148,7 @@ const Home = () => {
       </View> */}
         <View style={styles.ListView}>
         
-          <FlatList
+          {/* <FlatList
 
             data={arraydata}
 
@@ -89,14 +168,21 @@ const Home = () => {
 
             numColumns={2}
 
-          />
+          /> */}
+
+          <FlatList
+                  data={files}
+                  renderItem={renderItem}
+                  keyExtractor={(item) => item.name}
+                  numColumns={2}
+                />
     
         </View>
+        
       </View>
       
-     
-    {/* </ScrollView> */}
-     </SafeAreaView>
+      </ScrollView>
+  
   );
 };
 
@@ -160,7 +246,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fbc112'
   },
   ListView: {
-    width: "80%",
+    width: "100%",
     alignSelf: 'center',
     marginTop: 20
   },
@@ -195,6 +281,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#DDDDDD",
     padding: 10
+  },
+  screenContainer: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 16
   }
 });
 
