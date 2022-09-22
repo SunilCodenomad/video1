@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>VIDEO1.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>buildNumber</key>
+			<string>1</string>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>38A63F34B334761730612469F0D6942FF19A5580</string>
+				<key>dateExpires</key>
+				<string>02/09/23</string>
+				<key>type</key>
+				<string>Cloud Managed Apple Distribution</string>
+			</dict>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>54HHYVLHR6.com.videorec</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>54HHYVLHR6</string>
+				<key>get-task-allow</key>
+				<false/>
+				<key>keychain-access-groups</key>
+				<array>
+					<string>54HHYVLHR6.com.videorec</string>
+				</array>
+			</dict>
+			<key>name</key>
+			<string>VIDEO1.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>99892899-40c0-437c-ba41-fd26f18fda6c</string>
+				<key>dateExpires</key>
+				<string>02/09/23</string>
+				<key>name</key>
+				<string>iOS Team Ad Hoc Provisioning Profile: com.videorec</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>54HHYVLHR6</string>
+				<key>name</key>
+				<string>ALESSANDRO CONTADIN</string>
+			</dict>
+			<key>versionNumber</key>
+			<string>1.0</string>
+		</dict>
+	</array>
+</dict>
+</plist>
