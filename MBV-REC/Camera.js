@@ -20,15 +20,9 @@ class Camera extends React.Component {
     processing: false,
     Data: null,
     isTrue: true,
-  }
-  //   ComponentDidUpdate() {
 
-  //     this.setState({ recording: false,
-  //       video_path: null,
-  //       processing: false,
-  //       Data:null,
-  //       isTrue: true, });
-  // }
+  }
+
 
   render() {
     const { recording, video_path, processing, isTrue, } = this.state;
