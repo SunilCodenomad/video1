@@ -4,6 +4,8 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 
+#import <Firebase.h>
+
 #import <React/RCTAppSetupUtils.h>
 
 #if RCT_NEW_ARCH_ENABLED
@@ -15,6 +17,9 @@
 #import <ReactCommon/RCTTurboModuleManager.h>
 
 #import <react/config/ReactNativeConfig.h>
+
+
+
 
 @interface AppDelegate () <RCTCxxBridgeDelegate, RCTTurboModuleManagerDelegate> {
   RCTTurboModuleManager *_turboModuleManager;
@@ -29,6 +34,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
+  [FIRApp configure];
   RCTAppSetupPrepareApp(application);
 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
