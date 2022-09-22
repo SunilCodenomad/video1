@@ -10,43 +10,43 @@ import { useNavigation } from '@react-navigation/native';
 class Camera extends React.Component {
   constructor(props) {
     super(props);
-  
-}
+
+  }
 
   state = {
 
     recording: false,
     video_path: null,
     processing: false,
-    Data:null,
+    Data: null,
     isTrue: true,
   }
-//   ComponentDidUpdate() {
-    
-//     this.setState({ recording: false,
-//       video_path: null,
-//       processing: false,
-//       Data:null,
-//       isTrue: true, });
-// }
- 
+  //   ComponentDidUpdate() {
+
+  //     this.setState({ recording: false,
+  //       video_path: null,
+  //       processing: false,
+  //       Data:null,
+  //       isTrue: true, });
+  // }
+
   render() {
-    const { recording, video_path, processing, isTrue,} = this.state;
-    
-    if(isTrue) {
+    const { recording, video_path, processing, isTrue, } = this.state;
+
+    if (isTrue) {
       var button = (
         <View style={styles.tabView}>
           <View style={styles.ImageView}>
-          <Image
-                style={styles.Logo1}
-                source={require('../Assets/Layer.png')} />
-            
+            <Image
+              style={styles.Logo1}
+              source={require('../Assets/Layer.png')} />
+
             <TouchableOpacity
               onPress={this.startRecording.bind(this)}
               style={styles.button}>
               <Image
-              style={styles.Logo2}
-              source={require('../Assets/play.png')} />
+                style={styles.Logo2}
+                source={require('../Assets/play.png')} />
             </TouchableOpacity>
             <Image
               style={styles.Logo3}
@@ -68,7 +68,7 @@ class Camera extends React.Component {
             <TouchableOpacity
               onPress={this.stopRecording.bind(this)}
               style={styles.button}
-              
+
             >
               <Image
                 style={styles.Logo2}
@@ -124,11 +124,11 @@ class Camera extends React.Component {
         {video_path ?
 
           <View
-            style={{ flex: 1, flexDirection: "column", justifyContent: "flex-end",width:"100%",}}>
-            <Video source={{ uri:video_path }}   // Can be a URL or a local file.
+            style={{ flex: 1, flexDirection: "column", justifyContent: "flex-end", width: "100%", }}>
+            <Video source={{ uri: video_path }}   // Can be a URL or a local file.
               ref={(ref) => {
                 this.player = ref
-              }}  
+              }}
               fullscreen={true}
               resizeMode="cover"                                    // Store reference
               onBuffer={this.onBuffer}                // Callback when remote video is buffering
@@ -145,17 +145,17 @@ class Camera extends React.Component {
                 <TouchableOpacity style={styles.button}
                   onPress={() => this.saveVideo()}>
                   <Image
-                  style={styles.Logo3}
+                    style={styles.Logo3}
 
-                  source={require('../Assets/save.png')}
-                />
-                </TouchableOpacity>
-                
-                <Image
-                    style={styles.Logo2}
-                    source={require('../Assets/play.png')}
-
+                    source={require('../Assets/save.png')}
                   />
+                </TouchableOpacity>
+
+                <Image
+                  style={styles.Logo2}
+                  source={require('../Assets/play.png')}
+
+                />
               </View>
             </View>
           </View>
@@ -165,46 +165,48 @@ class Camera extends React.Component {
       </View>
     );
   }
-  async saveVideo(){  
+  async saveVideo() {
     //this.setState({processing:false,recording:true,});
-    
-    try{
-    const timestamp = Date.now();
-    
-    const filePath = this.state.Data
-    console.log(filePath)
-    const newFilePath = RNFS.ExternalDirectoryPath + '/'+timestamp+'.mp4';
-   
-    RNFS.moveFile(filePath,newFilePath)
-  .then(()=>{
-    console.log('image moved',filePath,'---to---',newFilePath)
-    this.props.navigation.navigate('Home')
-  })
-    .catch(error=>{console.log(error);})
-    
-    }catch(error){console.log(error)}
-    
+
+    try {
+      const timestamp = Date.now();
+
+      const filePath = this.state.Data
+      console.log(filePath)
+
+      const newFilePath = RNFS.ExternalDirectoryPath + '/' + timestamp + '.mp4';
+      alert(newFilePath)
+      RNFS.moveFile(filePath, newFilePath)
+        .then(() => {
+          console.log('image moved', filePath, '---to---', newFilePath)
+          alert('image moved', filePath, '---to---', newFilePath)
+          this.props.navigation.navigate('Home')
+        })
+        .catch(error => { alert('########3', error); })
+
+    } catch (error) { alert('>>>>>>>>>>>>>', error) }
+
   }
 
   async startRecording() {
     this.setState({ recording: true });
-    const options = { quality: RNCamera.Constants.VideoQuality["480p"]};
-    console.log(options,'>>>>>>>>>>>>>>>>>>>>>>>>optionnnnnnnnn')
-    console.log(this.camera,'**************>>>>>>>>>camera')
+    const options = { quality: RNCamera.Constants.VideoQuality["480p"] };
+    console.log(options, '>>>>>>>>>>>>>>>>>>>>>>>>optionnnnnnnnn')
+    console.log(this.camera, '**************>>>>>>>>>camera')
 
     const { uri, codec = 'mp4' } = await this.camera.recordAsync(options);
-    console.log(uri,'>>>>>>>>>>>>>>>>>>>>>>>>uri')
-    console.log(codec,'>>>>>>>>>>>>>>>>>>>>>>>>codec')
-    
-    if(uri)
-      console.log(uri,'>>>>>>>>>>>>>>>>>>>>>>>>uriiiiiiiiiiii')
-      
-      this.setState({ recording: false, video_path:uri, processing:true ,Data:uri});
-}
+    console.log(uri, '>>>>>>>>>>>>>>>>>>>>>>>>uri')
+    console.log(codec, '>>>>>>>>>>>>>>>>>>>>>>>>codec')
 
-stopRecording() {
-  this.camera.stopRecording();
-  this.setState({ isTrue: false })
+    if (uri)
+      console.log(uri, '>>>>>>>>>>>>>>>>>>>>>>>>uriiiiiiiiiiii')
+
+    this.setState({ recording: false, video_path: uri, processing: true, Data: uri });
+  }
+
+  stopRecording() {
+    this.camera.stopRecording();
+    this.setState({ isTrue: false })
   }
 
 
@@ -214,7 +216,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'black',width:"100%"
+    backgroundColor: 'black', width: "100%"
   },
   preview: {
     flex: 1,
@@ -233,7 +235,7 @@ const styles = StyleSheet.create({
     //flex:1,
     position: 'absolute',
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height*2,
+    height: Dimensions.get('window').height * 2,
     top: 0,
     left: 0,
     bottom: 0,
