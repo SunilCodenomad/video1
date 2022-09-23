@@ -35,6 +35,10 @@
   <string>Video1 would like to access your microphone to record voice.</string>
   <key>NSCameraUsageDescription</key>
   <string>Video1 would like to access your camera to record.</string>
+  <key>UIFileSharingEnabled</key>
+  <true/>
+  <key>LSSupportsOpeningDocumentsInPlace</key>
+  <true/>
 
 	<key>NSAppTransportSecurity</key>
 	

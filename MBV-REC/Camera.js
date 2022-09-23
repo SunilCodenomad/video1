@@ -167,13 +167,17 @@ class Camera extends React.Component {
 
       const filePath = this.state.Data
       console.log(filePath)
+      //RNFS.DocumentDirectoryPath
+      var newFilePath = RNFS.DocumentDirectoryPath + '/' + timestamp + '.mp4';
+      if (Platform.OS === 'android') {
+        newFilePath = RNFS.ExternalDirectoryPath + '/' + + timestamp + '.mp4';
 
-      const newFilePath = RNFS.ExternalDirectoryPath + '/' + timestamp + '.mp4';
-      alert(newFilePath)
+      }
+
       RNFS.moveFile(filePath, newFilePath)
         .then(() => {
           console.log('image moved', filePath, '---to---', newFilePath)
-          alert('image moved', filePath, '---to---', newFilePath)
+
           this.props.navigation.navigate('Home')
         })
         .catch(error => { alert('########3', error); })
