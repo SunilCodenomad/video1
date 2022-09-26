@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Text, Button, StyleSheet, View, Image, FlatList, TouchableOpacity, ScrollView, SafeAreaView, BackHandler } from "react-native";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNFS from 'react-native-fs';
 import Video from 'react-native-video';
@@ -15,7 +15,7 @@ const data = [
 
 ]
 const Home = () => {
-
+  const isFocused = useIsFocused();
   const navigation = useNavigation();
   const [arraydata, setarraydata] = useState(data);
   const [externalDirectory, setExternalDirectory] = useState('');
@@ -28,7 +28,13 @@ const Home = () => {
     setExternalDirectory(RNFS.DocumentDirectoryPath);
 
     getFileContent(RNFS.DocumentDirectoryPath);
-  }, [Home])
+    // var val = AsyncStorage.getItem('check')
+    // if (val != null) {
+    //   setExternalDirectory(RNFS.DocumentDirectoryPath);
+
+    //   getFileContent(RNFS.DocumentDirectoryPath);
+    // }
+  }, [isFocused])
 
   function HandleBackPress() {
     //    alert('Exit sir','Exiting the application?',[{
@@ -42,10 +48,10 @@ const Home = () => {
     //    });
     return true;
   }
-  const onBuffer = async (isBuffering) => {
+  // const onBuffer = async (isBuffering) => {
 
-    this.setState({ isBuffering });
-  }
+  //   this.setState({ isBuffering });
+  // }
   const getFileContent = async (path) => {
     const reader = await RNFS.readDir(path);
     console.log(reader)

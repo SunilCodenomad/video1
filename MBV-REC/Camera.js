@@ -4,6 +4,7 @@ import { RNCamera } from 'react-native-camera';
 import Video from 'react-native-video';
 import RNFS from 'react-native-fs';
 import { useNavigation } from '@react-navigation/native';
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
@@ -177,6 +178,7 @@ class Camera extends React.Component {
       RNFS.moveFile(filePath, newFilePath)
         .then(() => {
           console.log('image moved', filePath, '---to---', newFilePath)
+          // await AsyncStorage.setItem('check', 12345);
 
           this.props.navigation.navigate('Home')
         })
@@ -191,7 +193,7 @@ class Camera extends React.Component {
     const options = { quality: RNCamera.Constants.VideoQuality["480p"] };
     console.log(options, '>>>>>>>>>>>>>>>>>>>>>>>>optionnnnnnnnn')
     console.log(this.camera, '**************>>>>>>>>>camera')
-
+    // await AsyncStorage.removeItem('check');
     const { uri, codec = 'mp4' } = await this.camera.recordAsync(options);
     console.log(uri, '>>>>>>>>>>>>>>>>>>>>>>>>uri')
     console.log(codec, '>>>>>>>>>>>>>>>>>>>>>>>>codec')
