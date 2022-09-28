@@ -112,7 +112,7 @@ const Home = () => {
           <Button
             onPress={() => { clearStorage() }}
             title="Logout"
-            color="#841584"
+            color="#fbc112"
 
           />
         </View>
@@ -125,10 +125,10 @@ const Home = () => {
               onPress={() => navigation.navigate('BAR')}> */}
             <Text style={{ color: 'black', fontWeight: "bold" }}>REC MBV</Text>
             {/* </TouchableOpacity> */}
-            {/* <TouchableOpacity
-              onPress={() => navigation.navigate('video')}> */}
-            <Text style={{ color: 'black', fontWeight: "bold" }}>PLAY MBV</Text>
-            {/* </TouchableOpacity> */}
+            <TouchableOpacity
+              onPress={() => navigation.navigate('video')}>
+              <Text style={{ color: 'black', fontWeight: "bold" }}>PLAY MBV</Text>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.IconView}>
@@ -220,11 +220,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: "90%",
     alignItems: 'center',
-    marginTop: 50
+    marginTop: 15
   },
   text: {
     fontFamily: "Cochin",
-    color: 'white'
+    color: 'white',
+    fontSize: 15
   },
   titleText: {
     fontSize: 20,
@@ -291,7 +292,7 @@ const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     justifyContent: "center",
-    padding: 16
+    padding: 5
   }
 });
 

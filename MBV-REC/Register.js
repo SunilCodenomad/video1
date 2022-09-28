@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import auth from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
+import { blue100 } from "react-native-paper/lib/typescript/styles/colors";
 
 // Native builds get the config from google-services.json GoogleService-Info.plist
 //import firebase from 'firebase/compat/app';
@@ -58,6 +59,7 @@ export default function Register() {
         confirmpassword: confirmpassword,
       })
       if (email || password) {
+        alert("User Successfully Register")
         navigation.navigate('LoginShow')
       }
 
@@ -132,20 +134,21 @@ const styles = StyleSheet.create({
     justifyContent: "center", alignItems: "center"
   },
   inputView: {
+
     backgroundColor: "#ffffff",
     borderRadius: 30,
     width: "80%",
     height: 45,
     marginBottom: 20,
-
     alignItems: "center",
+
   },
 
   TextInput: {
-    height: 50,
-    flex: 1,
+
+    // flex: 1,
     padding: 10,
-    marginLeft: 20,
+
   },
 
   forgot_button: {
