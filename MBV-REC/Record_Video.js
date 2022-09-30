@@ -130,32 +130,50 @@
 // })
 // export default Record_Video;
 import React, { useState, useRef } from 'react';
-
-// import all the components we are going to use
+import { useIsFocused } from '@react-navigation/native';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-
-//Import React Native Video to play video
 import Video from 'react-native-video';
+import MediaControls, { PLAYER_STATES } from 'react-native-media-controls';
+import RNFS from 'react-native-fs';
+const Record_Video = () => {
+  // let filename = videoUrl.substring(deviceuri.lastIndexOf("/") + 1, videoUrl.length);
+  // let path_name = RNFS.DocumentDirectoryPath + filename;
 
-//Media Controls to control Play/Pause/Seek and full screen
-import
-MediaControls, { PLAYER_STATES }
-  from 'react-native-media-controls';
-
-const App = () => {
   const videoPlayer = useRef(null);
+  const [external, setExternal] = useState('');
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [paused, setPaused] = useState(false);
-  const [
-    playerState, setPlayerState
-  ] = useState(PLAYER_STATES.PLAYING);
+  const [playerState, setPlayerState] = useState(PLAYER_STATES.PLAYING);
   const [screenType, setScreenType] = useState('content');
 
+  useEffect(() => {
+
+
+    setExternal(RNFS.DocumentDirectoryPath);
+
+    // getFile(RNFS.DocumentDirectoryPath);
+    // var val = AsyncStorage.getItem('check')
+    // if (val != null) {
+    //   setExternalDirectory(RNFS.DocumentDirectoryPath);
+    //   getFileContent(RNFS.DocumentDirectoryPath);
+    // }
+  }, [])
+
+  // const getFile = async (path) => {
+  //   const reader = await RNFS.readDir(path);
+  //   console.log(reader)
+
+  // };
+
+
+
+
+
   const onSeek = (seek) => {
-    //Handler for change in seekbar
+
     videoPlayer.current.seek(seek);
   };
 
@@ -221,8 +239,8 @@ const App = () => {
         resizeMode={screenType}
         onFullScreen={isFullScreen}
         source={{
-          uri: RNFS.DocumentDirectoryPath + '/' + name
-
+          uri:
+            external;
         }}
         style={styles.mediaPlayer}
         volume={10}
@@ -244,7 +262,7 @@ const App = () => {
   );
 };
 
-export default App;
+
 
 const styles = StyleSheet.create({
   container: {
@@ -265,4 +283,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     justifyContent: 'center',
   },
-});
+})
+export default Record_Video;

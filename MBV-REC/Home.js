@@ -31,10 +31,10 @@ const Home = () => {
     // var val = AsyncStorage.getItem('check')
     // if (val != null) {
     //   setExternalDirectory(RNFS.DocumentDirectoryPath);
-
     //   getFileContent(RNFS.DocumentDirectoryPath);
     // }
   }, [isFocused])
+
 
   function HandleBackPress() {
     //    alert('Exit sir','Exiting the application?',[{
