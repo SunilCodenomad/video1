@@ -129,18 +129,16 @@
 //                     padding: 10}
 // })
 // export default Record_Video;
-import React, { useState, useRef } from 'react';
-import { useIsFocused } from '@react-navigation/native';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import React, { useState, useRef,useEffect } from 'react';
+import {StyleSheet, Text, View } from 'react-native';
 import Video from 'react-native-video';
 import MediaControls, { PLAYER_STATES } from 'react-native-media-controls';
 import RNFS from 'react-native-fs';
-const Record_Video = () => {
-  // let filename = videoUrl.substring(deviceuri.lastIndexOf("/") + 1, videoUrl.length);
-  // let path_name = RNFS.DocumentDirectoryPath + filename;
+const Record_Video = ({route}) => {
+  
 
   const videoPlayer = useRef(null);
-  const [external, setExternal] = useState('');
+  const [path, setPath] = useState();
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -150,23 +148,13 @@ const Record_Video = () => {
   const [screenType, setScreenType] = useState('content');
 
   useEffect(() => {
-
-
-    setExternal(RNFS.DocumentDirectoryPath);
-
-    // getFile(RNFS.DocumentDirectoryPath);
-    // var val = AsyncStorage.getItem('check')
-    // if (val != null) {
-    //   setExternalDirectory(RNFS.DocumentDirectoryPath);
-    //   getFileContent(RNFS.DocumentDirectoryPath);
-    // }
+    
+    setPath(route.params.path)
+    
+  
   }, [])
 
-  // const getFile = async (path) => {
-  //   const reader = await RNFS.readDir(path);
-  //   console.log(reader)
-
-  // };
+   
 
 
 
@@ -178,7 +166,7 @@ const Record_Video = () => {
   };
 
   const onPaused = (playerState) => {
-    //Handler for Video Pause
+
     setPaused(!paused);
     setPlayerState(playerState);
   };
@@ -236,12 +224,10 @@ const Record_Video = () => {
         onProgress={onProgress}
         paused={paused}
         ref={videoPlayer}
-        resizeMode={screenType}
+        resizeMode="cover"
         onFullScreen={isFullScreen}
-        source={{
-          uri:
-            external;
-        }}
+        source={{uri:path}}
+        
         style={styles.mediaPlayer}
         volume={10}
       />

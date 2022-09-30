@@ -171,7 +171,7 @@ class Camera extends React.Component {
       //RNFS.DocumentDirectoryPath
       var newFilePath = RNFS.DocumentDirectoryPath + '/' + timestamp + '.mp4';
       if (Platform.OS === 'android') {
-        newFilePath = RNFS.ExternalDirectoryPath + '/' + + timestamp + '.mp4';
+        newFilePath = RNFS.DocumentDirectoryPath + '/' + + timestamp + '.mp4';
 
       }
 

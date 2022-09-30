@@ -27,6 +27,7 @@
     "react-native": "^0.68.3",
     "react-native-camera": "^4.2.1",
     "react-native-camera-hooks": "^0.5.3",
+    "react-native-double-tap": "^1.0.1",
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.6.0",
     "react-native-media-controls": "^2.3.0",

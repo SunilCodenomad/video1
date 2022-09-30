@@ -6,18 +6,18 @@ import { useNavigation, useIsFocused } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNFS from 'react-native-fs';
 import Video from 'react-native-video';
-const data = [
-  { key: 'o' },
-  { key: '0' },
-  { key: '*' },
-  { key: '@' },
+// const data = [
+//   { key: 'o' },
+//   { key: '0' },
+//   { key: '*' },
+//   { key: '@' },
 
 
-]
+// ]
 const Home = () => {
   const isFocused = useIsFocused();
   const navigation = useNavigation();
-  const [arraydata, setarraydata] = useState(data);
+  // const [arraydata, setarraydata] = useState(data);
   const [externalDirectory, setExternalDirectory] = useState('');
   const [files, setFiles] = useState([]);
 
@@ -54,7 +54,7 @@ const Home = () => {
   // }
   const getFileContent = async (path) => {
     const reader = await RNFS.readDir(path);
-    console.log(reader)
+    
     setFiles(reader);
   };
 
@@ -125,10 +125,10 @@ const Home = () => {
               onPress={() => navigation.navigate('BAR')}> */}
             <Text style={{ color: 'black', fontWeight: "bold" }}>REC MBV</Text>
             {/* </TouchableOpacity> */}
-            <TouchableOpacity
-              onPress={() => navigation.navigate('video')}>
+            {/* <TouchableOpacity
+              onPress={() => navigation.navigate('video')}> */}
               <Text style={{ color: 'black', fontWeight: "bold" }}>PLAY MBV</Text>
-            </TouchableOpacity>
+            {/* </TouchableOpacity> */}
           </View>
         </View>
         <View style={styles.IconView}>
@@ -176,12 +176,36 @@ const Home = () => {
 
           /> */}
 
-          <FlatList
+
+    <FlatList
+
             data={files}
-            renderItem={renderItem}
+            renderItem={({item},index) => (
+              
+              <TouchableOpacity 
+                
+              onPress={
+                () => navigation.navigate('video',{path:item.path})
+              }
+              >
+             
+
+             <View>
+       
+        <Item name={item.name} isFile={item.isFile()} />
+      </View>
+              
+             
+              </TouchableOpacity>
+            )
+            }
+            
             keyExtractor={(item) => item.name}
             numColumns={2}
           />
+          
+         
+          
 
         </View>
 
@@ -291,7 +315,7 @@ const styles = StyleSheet.create({
   },
   screenContainer: {
     flex: 1,
-    justifyContent: "center",
+    alignSelf:"flex-end",
     padding: 5
   }
 });
