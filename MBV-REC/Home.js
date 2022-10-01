@@ -316,7 +316,8 @@ const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     alignSelf:"flex-end",
-    padding: 5
+    // padding: 5,
+    marginTop:25
   }
 });
 
