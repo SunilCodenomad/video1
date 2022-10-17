@@ -15,6 +15,7 @@
 		162E4CFD2092F153E8B4FB7B /* libPods-VIDEO1-VIDEO1Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22AC12437A7A28F2B1B47DD9 /* libPods-VIDEO1-VIDEO1Tests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		E2CA629A8328A3F9F0B41C66 /* libPods-VIDEO1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8553A6B6DA6ABD6CA2009406 /* libPods-VIDEO1.a */; };
+		8CFE7CA4136E4EA8A38E2224 /* libRNVideoProcessing.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32CD609EE665437BAA4AEB0B /* libRNVideoProcessing.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,8 @@
 		E019F9F3C0B9C822C16B452B /* Pods-VIDEO1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VIDEO1.release.xcconfig"; path = "Target Support Files/Pods-VIDEO1/Pods-VIDEO1.release.xcconfig"; sourceTree = "<group>"; };
 		E8BF2275B54D23788DC71C22 /* Pods-VIDEO1-VIDEO1Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VIDEO1-VIDEO1Tests.debug.xcconfig"; path = "Target Support Files/Pods-VIDEO1-VIDEO1Tests/Pods-VIDEO1-VIDEO1Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		E1550E4D3BFA426E9A27F7F9 /* RNVideoProcessing.xcodeproj */ = {isa = PBXFileReference; name = "RNVideoProcessing.xcodeproj"; path = "../node_modules/react-native-video-processing/ios/RNVideoProcessing.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		32CD609EE665437BAA4AEB0B /* libRNVideoProcessing.a */ = {isa = PBXFileReference; name = "libRNVideoProcessing.a"; path = "libRNVideoProcessing.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +65,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2CA629A8328A3F9F0B41C66 /* libPods-VIDEO1.a in Frameworks */,
+				8CFE7CA4136E4EA8A38E2224 /* libRNVideoProcessing.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +116,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				E1550E4D3BFA426E9A27F7F9 /* RNVideoProcessing.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -468,6 +473,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VIDEO1.app/VIDEO1";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-video-processing/ios/RNVideoProcessing/**",
+				);
 			};
 			name = Debug;
 		};
@@ -492,6 +505,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VIDEO1.app/VIDEO1";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-video-processing/ios/RNVideoProcessing/**",
+				);
 			};
 			name = Release;
 		};
@@ -521,6 +542,10 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-video-processing/ios/RNVideoProcessing/**",
+				);
 			};
 			name = Debug;
 		};
@@ -548,6 +573,10 @@
 				PRODUCT_NAME = VIDEO1;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-video-processing/ios/RNVideoProcessing/**",
+				);
 			};
 			name = Release;
 		};

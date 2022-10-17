@@ -20,7 +20,7 @@ const Home = () => {
   // const [arraydata, setarraydata] = useState(data);
   const [externalDirectory, setExternalDirectory] = useState('');
   const [files, setFiles] = useState([]);
-
+  
 
   useEffect(() => {
 
@@ -54,7 +54,7 @@ const Home = () => {
   // }
   const getFileContent = async (path) => {
     const reader = await RNFS.readDir(path);
-    
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>",reader)
     setFiles(reader);
   };
 
@@ -139,13 +139,13 @@ const Home = () => {
               source={require('../Assets/play.png')}
             />
           </TouchableOpacity>
-          {/* <TouchableOpacity
-            onPress={() => {clearStorage()}}> */}
+          <TouchableOpacity
+            onPress={() => navigation.navigate('NewFeedScreen')}> 
           <Image
             style={styles.tinyLogo}
             source={require('../Assets/Layer.png')}
           />
-          {/* </TouchableOpacity> */}
+          </TouchableOpacity> 
         </View>
 
         <View style={styles.horizontalRow} />

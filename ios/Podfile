@@ -25,6 +25,8 @@ target 'VIDEO1' do
   'FaceDetectorMLKit'
 ]
  pod 'RNFS', :path => "../node_modules/react-native-fs"
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
   target 'VIDEO1Tests' do
     inherit! :complete
     # Pods for testing

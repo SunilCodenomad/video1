@@ -43,7 +43,7 @@ export default function Register() {
   const [confirmpassword, setconfirmPassword] = useState("");
 
   const userSignup = async () => {
-    console.log('hello>>>>>>>>>>>>>>>>>>>>')
+    
     if (!email || !password) {
       alert("please add all the field")
       return

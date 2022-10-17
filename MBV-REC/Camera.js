@@ -2,8 +2,9 @@ import React from 'react';
 import { View, TouchableOpacity, StyleSheet, Text, Image, Dimensions } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import Video from 'react-native-video';
-import RNFS from 'react-native-fs';
+import RNFS,{uploadFiles} from 'react-native-fs';
 import { useNavigation } from '@react-navigation/native';
+
 // import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
@@ -21,12 +22,17 @@ class Camera extends React.Component {
     processing: false,
     Data: null,
     isTrue: true,
-
+    startValue:"",
+    endValue:"",
   }
-
+   componentDidMount() {
+  
+    
+ 
+   }
 
   render() {
-    const { recording, video_path, processing, isTrue, } = this.state;
+    const { recording, video_path, processing, isTrue,startValue,endValue } = this.state;
 
     if (isTrue) {
       var button = (
@@ -165,49 +171,125 @@ class Camera extends React.Component {
 
     try {
       const timestamp = Date.now();
-
+      
+      const final=this.state.startValue + " to" +this.state.endValue 
+      alert(final) 
       const filePath = this.state.Data
-      console.log(filePath)
+      console.log("?????????????????///////",filePath)
       //RNFS.DocumentDirectoryPath
       var newFilePath = RNFS.DocumentDirectoryPath + '/' + timestamp + '.mp4';
-      if (Platform.OS === 'android') {
-        newFilePath = RNFS.DocumentDirectoryPath + '/' + + timestamp + '.mp4';
+      // if (Platform.OS === 'android') {
+      //   newFilePath = RNFS.DocumentDirectoryPath + '/' + + timestamp + '.mp4';
+      // }
 
-      }
+
+
 
       RNFS.moveFile(filePath, newFilePath)
+      
         .then(() => {
-          console.log('image moved', filePath, '---to---', newFilePath)
-          // await AsyncStorage.setItem('check', 12345);
-
+          console.log('video moved', filePath, '---to---', newFilePath)
+         
+        this.callApi(newFilePath)
+          
+          
           this.props.navigation.navigate('Home')
         })
-        .catch(error => { alert('########3', error); })
+        .catch(error => { alert( error); })
 
-    } catch (error) { alert('>>>>>>>>>>>>>', error) }
+    } catch (error) { alert( error) }
 
   }
 
+  callApi(path){
+    var files = [
+      {
+        name: "video",
+        filename: "video.mp4",
+        filepath:path ,
+        filetype: "video/mp4",
+      },
+    ];
+    console.log("filesssssssssssssssssss",files[0].filepath)
+    
+    uploadFiles({
+      toUrl: "https://upload-service-url",
+      files: files,
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+      },
+      begin: () => {},
+      // You can use this callback to show a progress indicator.
+      progress: ({ totalBytesSent, totalBytesExpectedToSend }) => {},
+    });
+  }
+
+
   async startRecording() {
+    var hours = new Date().getHours();
+    var min = new Date().getMinutes(); 
+    var sec = new Date().getSeconds();
+    var startTime = hours + ':' + min + ':' + sec
+    this.setState({startValue:startTime})
+
     this.setState({ recording: true });
-    const options = { quality: RNCamera.Constants.VideoQuality["480p"] };
+    const options = { quality: RNCamera.Constants.VideoQuality["480p"],maxDuration: 10 };
+    //maxDuration: 10  =(for recording 10sec video)
     console.log(options, '>>>>>>>>>>>>>>>>>>>>>>>>optionnnnnnnnn')
-    console.log(this.camera, '**************>>>>>>>>>camera')
-    // await AsyncStorage.removeItem('check');
-    const { uri, codec = 'mp4' } = await this.camera.recordAsync(options);
+    console.log(this.camera,'*********************camera')
+    //awaitAsyncStorage.removeItem('check');
+    const { uri, codec = 'mp4' } = await this.camera.recordAsync({options});
     console.log(uri, '>>>>>>>>>>>>>>>>>>>>>>>>uri')
     console.log(codec, '>>>>>>>>>>>>>>>>>>>>>>>>codec')
-
+   
     if (uri)
       console.log(uri, '>>>>>>>>>>>>>>>>>>>>>>>>uriiiiiiiiiiii')
 
-    this.setState({ recording: false, video_path: uri, processing: true, Data: uri });
+    this.setState({ recording: false, video_path: uri, processing: true, Data: uri,isTrue: false });
+    
   }
 
   stopRecording() {
+    var hours = new Date().getHours();
+    var min = new Date().getMinutes(); 
+    var sec = new Date().getSeconds();
+    var endTime = hours + ':' + min + ':' + sec
+    this.setState({endValue:endTime})
     this.camera.stopRecording();
     this.setState({ isTrue: false })
+   
+
   }
+  
+
+
+
+
+//   takeVideo = async (camera) => {
+//     console.log('Top of takeVideo');
+//     try {
+//         const promise = camera.recordAsync(this.state.recordOptions);
+//         if (promise) {
+//             console.log('isRecording');
+//             const data = await promise;
+//             console.log('After promise');
+//             console.warn('takeVideo', data);
+//         }
+//     } catch (e) {
+//         console.error(e);
+//     }
+// };
+
+// captureVideoUnit(camera) {
+//     setInterval(console.log('Start of interval'),20000);
+//     setInterval(this.takeVideo(camera), 20000);
+//     if(camera) {
+//         console.log('about to stop');
+//         camera.stopRecording();
+//     }
+
+// }
 
 
 }

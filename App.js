@@ -10,6 +10,7 @@ import Home from './MBV-REC/Home';
 import Record_Video from './MBV-REC/Record_Video';
 import REC_BAR from './MBV-REC/REC_BAR';
 import Camera from './MBV-REC/Camera';
+import NewFeedScreen from './MBV-REC/NewFeedScreen';
 
 
 const Stack = createNativeStackNavigator()
@@ -25,6 +26,7 @@ export default function App() {
           <Stack.Screen name="video" component={Record_Video} />
           <Stack.Screen name="BAR" component={REC_BAR} />
           <Stack.Screen name="Camera" component={Camera} />
+          <Stack.Screen name="NewFeedScreen" component={NewFeedScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
