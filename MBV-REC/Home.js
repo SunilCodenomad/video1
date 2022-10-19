@@ -54,7 +54,7 @@ const Home = () => {
   // }
   const getFileContent = async (path) => {
     const reader = await RNFS.readDir(path);
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>",reader)
+    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>",reader)cc
     setFiles(reader);
   };
 

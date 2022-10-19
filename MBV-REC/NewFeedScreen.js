@@ -47,6 +47,7 @@ export default class NewFeedScreen extends React.Component {
     createNewFeed = async () => {
         this.setState({ loading: true })
         const { text, image, video } = this.state;
+        console.log("video=================",video)
         let errorFlag = false;
         if (text) {
             errorFlag = true;
@@ -58,20 +59,16 @@ export default class NewFeedScreen extends React.Component {
         if (errorFlag) {
             let formData = new FormData();
             if (video) {
-                formData.append("videoFile", {
-                    name: "name.mp4",
-                    uri: video.uri,
-                    type: 'video/mp4'
-                });
+                formData.append("video", video);
             }
             if (image) {
-                formData.append("image", image.base64);
+                formData.append("image", image);
             }
             
-            formData.append("text", text);
-            formData.append("user_id", userDetails.id);
-            var base_url = "https://yourdomain.com/";
-            fetch(base_url + 'newFeed.php', {
+            formData.append("text", text); 
+            formData.append("user_id", "dfhgdf");
+            var base_url = "http://54.174.116.79:8000/auth/upload_video/";
+            fetch(base_url , {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -83,7 +80,7 @@ export default class NewFeedScreen extends React.Component {
                 })
                 .then(async (res) => {
                     this.setState({ loading: false });
-                    console.log(res)
+                    console.log("response===============================",res)
                     if(res.error == 0){
                         this.props.navigation.navigate("Feed");
                     }
