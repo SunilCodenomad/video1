@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, ScrollView, View, Dimensions, TouchableOpacity, Text } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 // import Icon from 'react-native-vector-icons/Ionicons';
@@ -160,3 +160,5 @@ const styles = StyleSheet.create({
         alignItems: "center"
     }
 });
+
+

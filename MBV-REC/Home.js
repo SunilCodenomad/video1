@@ -14,58 +14,40 @@ import Video from 'react-native-video';
 
 
 // ]
-const Home = () => {
+const Home = ({route}) => {
   const isFocused = useIsFocused();
   const navigation = useNavigation();
-  // const [arraydata, setarraydata] = useState(data);
   const [externalDirectory, setExternalDirectory] = useState('');
-  const [files, setFiles] = useState([]);
-  
+  const [files, setFiles] = useState(["https://www.w3schools.com/html/mov_bbb.mp4"]);
+  const [videoPath, setvideoPath] = useState();
 
   useEffect(() => {
 
     BackHandler.addEventListener("hardwareBackPress", HandleBackPress)
-    setExternalDirectory(RNFS.DocumentDirectoryPath);
+    // setExternalDirectory(RNFS.DocumentDirectoryPath);
 
-    getFileContent(RNFS.DocumentDirectoryPath);
-    // var val = AsyncStorage.getItem('check')
-    // if (val != null) {
-    //   setExternalDirectory(RNFS.DocumentDirectoryPath);
-    //   getFileContent(RNFS.DocumentDirectoryPath);
-    // }
+    // getFileContent(RNFS.DocumentDirectoryPath);
+    //getFileContent(route.params.path);
+    if(route.params)
+      setFiles([route.params.path])
   }, [isFocused])
 
 
   function HandleBackPress() {
-    //    alert('Exit sir','Exiting the application?',[{
-    //      text:'Cancel',
-    //      onPress:()=>{console.log('Cancel Pressed');},
-    //      style:'Cancel'},
-    // { text:'Ok',
-    // onPress:()=>BackHandler.exitApp(),}
-    //    ],{
-    //     cancelable:false,
-    //    });
+   
     return true;
   }
-  // const onBuffer = async (isBuffering) => {
-
-  //   this.setState({ isBuffering });
-  // }
+ 
   const getFileContent = async (path) => {
     const reader = await RNFS.readDir(path);
-    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>",reader)cc
-    setFiles(reader);
+    
+    //setFiles(reader);
   };
 
-  const Item = ({ name, isFile }) => {
+  const Item = ({ name }) => {
     return (
       <View style={styles.GridViewBlockStyle1}>
-        {/* <View style={styles.GridViewBlockStyle}>
-
-        <Text style={styles.GridViewInsideTextItemStyle}> {item.key} </Text>
-
-      </View> */}
+       
         <Video
           style={styles.GridViewBlockStyle}
           muted={true}
@@ -82,15 +64,7 @@ const Home = () => {
     );
   };
 
-  const renderItem = ({ item, index }) => {
-    return (
-      <View>
-        {/* <Text style={styles.title}>{index}</Text> */}
-        {/* The isFile method indicates whether the scanned content is a file or a folder*/}
-        <Item name={item.name} isFile={item.isFile()} />
-      </View>
-    );
-  };
+  
 
   const clearStorage = async () => {
 
@@ -105,7 +79,7 @@ const Home = () => {
 
 
   return (
-    // <SafeAreaView style={styles.container1}>
+   
     <ScrollView nestedScrollEnabled={true} style={styles.container1}>
       <View style={styles.container}>
         <View style={styles.screenContainer}>
@@ -149,32 +123,10 @@ const Home = () => {
         </View>
 
         <View style={styles.horizontalRow} />
-        {/* <View style={styles.TextView}>
-        <Text style={styles.text}>THE BEST VIDEO</Text>
-      </View> */}
+        
         <View style={styles.ListView}>
 
-          {/* <FlatList
-
-            data={arraydata}
-
-            renderItem={({ item }) =>
-              <View style={styles.GridViewBlockStyle1}>
-                <View style={styles.GridViewBlockStyle}>
-
-                  <Text style={styles.GridViewInsideTextItemStyle}> {item.key} </Text>
-
-                </View>
-                <Text style={{ color: 'white', fontSize:12}}>DEFENCE 10 TIMES IN A SINGLE RELLAY</Text>
-                <Text style={{ color: 'white', fontSize: 12 }}>BEACH VOLLEY</Text>
-
-              </View>
-
-            }
-
-            numColumns={2}
-
-          /> */}
+          
 
 
     <FlatList
@@ -185,14 +137,14 @@ const Home = () => {
               <TouchableOpacity 
                 
               onPress={
-                () => navigation.navigate('video',{path:item.path})
+                () => navigation.navigate('video',{path:item})
               }
               >
              
 
              <View>
        
-        <Item name={item.name} isFile={item.isFile()} />
+        <Item name={item.name} />
       </View>
               
              

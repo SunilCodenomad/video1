@@ -27,13 +27,16 @@ class Camera extends React.Component {
     show:false,
     inputTime:"",
     outputTime:"",
+    videoReturned:"",
   }
+ 
 
 
 
 
   render() {
-    const { recording, video_path, processing, isTrue, startValue, endValue,inputTime,outputTime } = this.state;
+    console.log("in render")
+    const { recording, video_path, processing, isTrue, startValue, endValue,inputTime,outputTime,videoReturned} = this.state;
 
     if (isTrue) {
       var button = (
@@ -190,79 +193,27 @@ class Camera extends React.Component {
       </View>
     );
   }
-  //    getFileBlob = function (url, cb) {
-  //     var xhr = new XMLHttpRequest();
-  //     xhr.open("GET", url);
-  //     xhr.responseType = "blob";
-  //     xhr.addEventListener('load', function() {
-  //         cb(xhr.response);
-  //     });
-  //     xhr.send();
-  // };
-
-  //  blobToFile = function (blob, name) {
-  //     blob.lastModifiedDate = new Date();
-  //     blob.name = name;
-  //     return blob;
-  // };
-
-  //  getFileObject = function(filePathOrUrl, cb) {
-  //    this.getFileBlob(filePathOrUrl, function (blob) {
-  //       cb(this.blobToFile(blob, 'test.mp4'));
-  //    });
-  // };
-
-
-
+  
   async saveVideo() {
-
-
-
-
     try {
-
-
-      const final = this.state.startValue + " to" + this.state.endValue;
-      
-      console.log("finaltime>>>>>>>>>>>>>>>>>>>>>>>>>>>>", final)
-
-
       const timestamp = Date.now();
       const filePath = this.state.Data
       console.log("?????????????????///////", filePath)
-
       var newFilePath = RNFS.DocumentDirectoryPath + '/' + timestamp + '.mp4';
-
-      this.callApi(newFilePath)
-
-
-
-      RNFS.moveFile(filePath, newFilePath)
-
-        .then(() => {
-          console.log('video moved', filePath, '---to---', newFilePath)
-
-
-          this.callApi(newFilePath)
-
-
-          this.props.navigation.navigate('Home')
-        })
-        .catch(error => { alert(error); })
+      
+          await RNFS.moveFile(filePath, newFilePath);
+          const videoResponse = await this.callApi(newFilePath)
+          
+        
+          this.props.navigation.navigate('Home',{path:this.state.videoReturned})
+       
 
     } catch (error) { alert(error) }
 
   }
 
   async callApi(path) {
-    // var files = [
-    //   {
-    //     name: "video",
-    //     filename: "video.mp4",
-    //     filepath:path ,
-    //     filetype: "video/mp4",
-    //   },
-    // ];
+    
     console.log(path, "++++++++++++++++++++++path")
 
     try {
@@ -283,32 +234,30 @@ class Camera extends React.Component {
 
       })
       console.log(".........................", response)
-      if (response.status === 200) { alert(` You have created: ${JSON.stringify(response.data)}`); }
+      if (response.status === 200) { 
+        alert(` You have created: ${JSON.stringify(response.data.video)}`); 
+          this.setState({videoreturned:"https://www.w3schools.com/html/mov_bbb.mp4"})
+        // this.setState({videoReturned:response.data.video},()=>{
+        //   console.log("videoRetuerned===============",this.state.videoReturned)
+        // })
+        return response.data.video
+        
+          console.log("videoReturned=========================",this.state.videoReturned)
+   
+      }
       else {
         throw new Error("An error has occurred");
       }
+     
+  
+    
+      
     }
     catch (e) {
       console.log("erorrrrrrrrrrrrrrrrrrrrrrrrrrr", e)
     }
 
-    // console.log(res,"=====================================RESSSSSSSSSSS")
-    //console.log("filesssssssssssssssssss",files[0].filepath)
-
-    // uploadFiles({
-    //   toUrl: 'http://54.89.237.214:8000/auth/upload_video/',
-    //   files: files,
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json",
-    //   },
-    //   begin: () => {},
-
-    //   progress: ({ totalBytesSent, totalBytesExpectedToSend }) => {
-    //     console.log(totalBytesSent)
-    //   },
-
-    // });
+    
   }
 
 
@@ -321,7 +270,7 @@ class Camera extends React.Component {
     //maxDuration: 10  =(for recording 10sec video)
     console.log(options, '>>>>>>>>>>>>>>>>>>>>>>>>optionnnnnnnnn')
     console.log(this.camera, '*********************camera')
-    //awaitAsyncStorage.removeItem('check');
+  
     const { uri, codec = 'mp4' } = await this.camera.recordAsync({ options });
     console.log(uri, '>>>>>>>>>>>>>>>>>>>>>>>>uri')
     console.log(codec, '>>>>>>>>>>>>>>>>>>>>>>>>codec')

@@ -138,7 +138,7 @@ const Record_Video = ({route}) => {
   
 
   const videoPlayer = useRef(null);
-  const [path, setPath] = useState();
+  const [path, setPath] = useState('');
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -150,6 +150,10 @@ const Record_Video = ({route}) => {
   useEffect(() => {
     
     setPath(route.params.path)
+    setTimeout(()=>{
+      console.log("path======================",path)
+    },5000)
+  
     
   
   }, [])
@@ -215,37 +219,45 @@ const Record_Video = ({route}) => {
 
   const onSeeking = (currentTime) => setCurrentTime(currentTime);
 
+
   return (
-    <View style={{ flex: 1 }}>
-      <Video
-        onEnd={onEnd}
-        onLoad={onLoad}
-        onLoadStart={onLoadStart}
-        onProgress={onProgress}
-        paused={paused}
-        ref={videoPlayer}
-        resizeMode="cover"
-        onFullScreen={isFullScreen}
-        source={{uri:path}}
-        
-        style={styles.mediaPlayer}
-        volume={10}
-      />
-      <MediaControls
-        duration={duration}
-        isLoading={isLoading}
-        mainColor="#333"
-        onFullScreen={onFullScreen}
-        onPaused={onPaused}
-        onReplay={onReplay}
-        onSeek={onSeek}
-        onSeeking={onSeeking}
-        playerState={playerState}
-        progress={currentTime}
-        toolbar={renderToolbar()}
-      />
-    </View>
-  );
+
+<>
+{ path ?
+  <View style={{ flex: 1 }}>
+  <Video
+    onEnd={onEnd}
+    onLoad={onLoad}
+    onLoadStart={onLoadStart}
+    onProgress={onProgress}
+    paused={paused}
+    ref={videoPlayer}
+    resizeMode="cover"
+    onFullScreen={isFullScreen}
+    source={{uri:path}}
+    
+    style={styles.mediaPlayer}
+    volume={10}
+  />
+  <MediaControls
+    duration={duration}
+    isLoading={isLoading}
+    mainColor="#333"
+    onFullScreen={onFullScreen}
+    onPaused={onPaused}
+    onReplay={onReplay}
+    onSeek={onSeek}
+    onSeeking={onSeeking}
+    playerState={playerState}
+    progress={currentTime}
+    toolbar={renderToolbar()}
+  />
+</View>
+: null }
+</>
+    
+
+  )   
 };
 
 
